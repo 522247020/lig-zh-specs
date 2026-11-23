@@ -101,9 +101,22 @@ def check_descriptions() -> list[str]:
     return errors
 
 
+LIG_REPO = "https://github.com/KevenGoncalves/lig"
+LIG_INSTALL = (
+    "安装: https://github.com/KevenGoncalves/lig#install （"
+    "Linux/macOS: curl -fsSL https://github.com/KevenGoncalves/lig/releases/latest/download/install.sh | sh）"
+)
+
+
+def missing_lig() -> None:
+    print("未找到 lig 命令，跳过需要 lig 的检查。")
+    print(f"  lig 仓库: {LIG_REPO}")
+    print(f"  {LIG_INSTALL}")
+
+
 def lig_specs_check() -> list[str]:
     if not shutil.which("lig"):
-        print("跳过 lig specs check（PATH 里没有 lig）")
+        missing_lig()
         return []
     with tempfile.TemporaryDirectory() as tmp:
         cfg = pathlib.Path(tmp)
@@ -127,7 +140,7 @@ def lig_specs_check() -> list[str]:
 def compare_upstream() -> list[str]:
     """tmux / curl：与 lig 内置 spec 比对结构（忽略 description）。"""
     if not shutil.which("lig"):
-        print("跳过 --upstream（PATH 里没有 lig）")
+        missing_lig()
         return []
     errors = []
     for cmd, filename in FROM_BUILTIN.items():

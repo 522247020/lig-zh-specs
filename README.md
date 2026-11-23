@@ -4,6 +4,9 @@
 
 lig 是一个 IDE 风格的终端补全工具，弹窗里的说明文字来自它的 spec 文件（Fig 格式，TOML/JSON）。lig 自带几百个命令的 spec，但描述都是英文。本仓库把这些 spec 的 `description` 翻译成中文，并对几个常用命令补上了更细的枚举值和中文提示。
 
+- lig 仓库：<https://github.com/KevenGoncalves/lig>
+- lig 安装说明：<https://github.com/KevenGoncalves/lig#install>
+
 > 非官方项目，与 lig 作者无关。只在 lig 1.4.0 上验证过。
 
 ## 效果
@@ -49,12 +52,32 @@ $ lig complete "tmux split-window -"
 
 合计约 700 条中文描述。`tmux`/`curl` 是整体翻译，其余是手写（参数取自本机 `--help`）。
 
+## 前置要求
+
+需要先安装 **lig**（本仓库在 **1.4.0** 上验证，更早的版本可能不认识部分字段）：
+
+- 仓库：<https://github.com/KevenGoncalves/lig>
+- 安装文档：<https://github.com/KevenGoncalves/lig#install>
+
+| 平台 | 安装方式 |
+|---|---|
+| Linux / macOS | `curl -fsSL https://github.com/KevenGoncalves/lig/releases/latest/download/install.sh \| sh` |
+| Homebrew | `brew install kevengoncalves/tap/lig` |
+| Fedora / RHEL | `sudo dnf copr enable kevengoncalves/lig && sudo dnf install lig` |
+| Debian / Ubuntu | 添加上游 APT 源（见 lig 仓库 README） |
+| Nix | home-manager 的 `programs.lig` 模块 |
+| 从源码 | 克隆后 `cargo install --path .`（Rust 1.85+） |
+
+装好 lig 后还要执行一次 `lig install` 启用 shell 集成，`lig doctor` 可以检查状态。
+
+`tools/install.sh` 会先检查 `lig` 是否在 `PATH` 里：找不到时会列出上面的安装方式，并询问是否现在就用官方脚本安装（`--install-lig` 可跳过询问；非交互环境只提示不安装）。
+
 ## 安装
 
 ```bash
 git clone https://github.com/522247020/lig-zh-specs.git
 cd lig-zh-specs
-./tools/install.sh            # 默认建软链接，git pull 后自动生效
+./tools/install.sh            # 默认建软链接，git pull 后自动生效；缺 lig 时会提示并询问是否安装
 # 或
 ./tools/install.sh --copy     # 复制一份到 ~/.config/lig/specs
 ```
