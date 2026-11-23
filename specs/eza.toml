@@ -1,0 +1,337 @@
+# eza 0.23.5 的中文描述 spec（整体替换内置 Fig 版）
+# 改完：lig specs check eza / lig complete "eza --color="
+
+name = "eza"
+description = "现代化的 ls 替代品"
+
+args = { name = "路径", isVariadic = true, template = "filepaths" }
+
+# ── 布局 ────────────────────────────────────────────────────
+[[options]]
+name = ["-1", "--oneline"]
+description = "每个条目只占一行"
+
+[[options]]
+name = ["-l", "--long"]
+description = "长格式表格，显示权限、大小、时间等"
+
+[[options]]
+name = ["-G", "--grid"]
+description = "网格布局（默认）"
+
+[[options]]
+name = ["-x", "--across"]
+description = "网格按横向排列，而不是向下"
+
+[[options]]
+name = ["-R", "--recurse"]
+description = "递归列出子目录"
+
+[[options]]
+name = ["-T", "--tree"]
+description = "以树形递归列出子目录"
+
+[[options]]
+name = ["-L", "--level"]
+description = "限制递归深度"
+args = { name = "层数", suggestions = ["1", "2", "3", "4", "5"] }
+
+[[options]]
+name = "--code"
+description = "按语言统计代码行数（可加 =模式）"
+args = { name = "模式", isOptional = true }
+requiresSeparator = true
+
+[[options]]
+name = "--follow-symlinks"
+description = "进入指向目录的符号链接"
+
+[[options]]
+name = ["-w", "--width"]
+description = "设置终端宽度（列数）"
+args = { name = "列数" }
+
+# ── 显示 ────────────────────────────────────────────────────
+[[options]]
+name = ["-F", "--classify"]
+description = "在文件名后加类型标记"
+args = { name = "时机", isOptional = true, suggestions = ["always", "auto", "never"] }
+requiresSeparator = true
+
+[[options]]
+name = ["-X", "--dereference"]
+description = "显示符号链接指向的目标信息"
+
+[[options]]
+name = "--absolute"
+description = "显示绝对路径"
+args = { name = "方式", isOptional = true, suggestions = [
+  { name = "on", description = "始终显示绝对路径" },
+  { name = "off", description = "只显示文件名" },
+  { name = "follow", description = "跟随符号链接再取绝对路径" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["--color", "--colour"]
+description = "何时使用颜色"
+args = { name = "时机", isOptional = true, suggestions = [
+  { name = "always", description = "始终着色" },
+  { name = "auto", description = "输出到终端时才着色" },
+  { name = "never", description = "关闭颜色" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["--color-scale", "--colour-scale"]
+description = "按数值大小渐变高亮指定字段"
+args = { name = "字段", isOptional = true, isVariadic = true, suggestions = [
+  { name = "all", description = "所有可比的字段" },
+  { name = "age", description = "按文件新旧" },
+  { name = "size", description = "按文件大小" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["--color-scale-mode", "--colour-scale-mode"]
+description = "颜色渐变的模式"
+args = { name = "模式", suggestions = ["fixed", "gradient"] }
+
+[[options]]
+name = "--icons"
+description = "何时显示文件图标"
+args = { name = "时机", isOptional = true, suggestions = ["always", "auto", "never"] }
+requiresSeparator = true
+
+[[options]]
+name = "--hyperlink"
+description = "把条目显示为可点击超链接"
+args = { name = "时机", isOptional = true, suggestions = ["always", "auto", "never"] }
+requiresSeparator = true
+
+[[options]]
+name = "--no-quotes"
+description = "文件名含空格时也不加引号"
+
+[[options]]
+name = "--short-nix"
+description = "缩写文件名中的 Nix store 哈希"
+
+# ── 过滤 ────────────────────────────────────────────────────
+[[options]]
+name = ["-a", "--all"]
+description = "显示隐藏文件；重复两次连 . 和 .. 也显示"
+isRepeatable = true
+
+[[options]]
+name = ["-A", "--almost-all"]
+description = "等价于 --all（兼容 ls -A）"
+
+[[options]]
+name = ["-d", "--treat-dirs-as-files"]
+description = "把目录当普通文件列出（旧名 --list-dirs）"
+
+[[options]]
+name = ["-D", "--only-dirs"]
+description = "只列出目录"
+
+[[options]]
+name = ["-f", "--only-files"]
+description = "只列出文件"
+
+[[options]]
+name = "--show-symlinks"
+description = "配合 --only-dirs/--only-files 显式包含符号链接"
+
+[[options]]
+name = "--no-symlinks"
+description = "不显示符号链接"
+
+[[options]]
+name = ["-I", "--ignore-glob"]
+description = "忽略匹配该模式的文件（多个用 | 分隔）"
+args = { name = "模式" }
+
+[[options]]
+name = "--git-ignore"
+description = "遵循 .gitignore 忽略文件"
+
+# ── 排序 ────────────────────────────────────────────────────
+[[options]]
+name = "--group-directories-first"
+description = "目录排在文件前面"
+
+[[options]]
+name = "--group-directories-last"
+description = "目录排在文件后面"
+
+[[options]]
+name = ["-s", "--sort"]
+description = "选择排序字段"
+args = { name = "字段", suggestions = [
+  { name = "name", description = "按文件名" },
+  { name = "ext", description = "按扩展名" },
+  { name = "size", description = "按文件大小" },
+  { name = "type", description = "按文件类型" },
+  { name = "modified", description = "按修改时间（新→旧）" },
+  { name = "accessed", description = "按访问时间（新→旧）" },
+  { name = "created", description = "按创建时间（新→旧）" },
+  { name = "changed", description = "按状态变更时间（新→旧）" },
+  { name = "age", description = "按创建时间（旧→新）" },
+  { name = "inode", description = "按 inode 号" },
+  { name = "none", description = "不排序" },
+] }
+
+[[options]]
+name = ["-r", "--reverse"]
+description = "反转排序结果"
+
+# ── 长格式列 ────────────────────────────────────────────────
+[[options]]
+name = ["-h", "--header"]
+description = "给每一列加表头"
+
+[[options]]
+name = ["-i", "--inode"]
+description = "显示 inode 号"
+
+[[options]]
+name = "--loc"
+description = "增加代码行数与语言列"
+args = { name = "模式", isOptional = true, suggestions = ["lines", "percent", "both"] }
+requiresSeparator = true
+
+[[options]]
+name = ["-o", "--octal-permissions"]
+description = "用八进制显示权限"
+
+[[options]]
+name = ["-H", "--links"]
+description = "显示硬链接数"
+
+[[options]]
+name = ["-b", "--binary"]
+description = "用二进制前缀显示大小（KiB/MiB）"
+
+[[options]]
+name = ["-B", "--bytes"]
+description = "以字节显示大小，不加单位"
+
+[[options]]
+name = "--total-size"
+description = "目录显示其内容的总大小"
+
+[[options]]
+name = ["-S", "--blocksize"]
+description = "显示实际占用的磁盘块大小"
+
+[[options]]
+name = ["-g", "--group"]
+description = "显示所属组"
+
+[[options]]
+name = "--smart-group"
+description = "组名与属主不同名时才显示组"
+
+[[options]]
+name = ["-n", "--numeric"]
+description = "用户和组显示为数字 ID"
+
+[[options]]
+name = ["-t", "--time"]
+description = "选择要显示的时间字段"
+args = { name = "字段", suggestions = [
+  { name = "modified", description = "修改时间（默认）" },
+  { name = "accessed", description = "访问时间" },
+  { name = "changed", description = "状态变更时间" },
+  { name = "created", description = "创建时间" },
+] }
+
+[[options]]
+name = ["-m", "--modified"]
+description = "显示修改时间字段（可与其他时间字段并用）"
+
+[[options]]
+name = ["-u", "--accessed"]
+description = "显示访问时间字段"
+
+[[options]]
+name = "--changed"
+description = "显示状态变更时间字段"
+
+[[options]]
+name = ["-U", "--created"]
+description = "显示创建时间字段"
+
+[[options]]
+name = "--time-style"
+description = "设置时间显示格式"
+args = { name = "样式", suggestions = [
+  { name = "default", description = "默认格式" },
+  { name = "iso", description = "类似 2024-05-01 12:34" },
+  { name = "long-iso", description = "完整到分钟（默认）" },
+  { name = "full-iso", description = "含时区与纳秒" },
+  { name = "relative", description = "相对时间，如 2 hours ago" },
+  { name = "+%Y-%m-%d %H:%M", description = "自定义 strftime 格式" },
+] }
+
+[[options]]
+name = ["-O", "--flags"]
+description = "显示文件标志（Mac/BSD/Windows）"
+
+[[options]]
+name = ["-Z", "--context"]
+description = "显示 SELinux 安全上下文"
+
+[[options]]
+name = "--git"
+description = "显示每个文件的 Git 状态"
+
+[[options]]
+name = "--git-repos"
+description = "显示所属 Git 仓库根的状态"
+
+[[options]]
+name = "--git-repos-no-status"
+description = "只显示 Git 分支名（更快）"
+
+[[options]]
+name = ["-M", "--mounts"]
+description = "显示挂载点详情（Linux/macOS）"
+
+[[options]]
+name = ["-@", "--extended"]
+description = "显示扩展属性及其大小"
+
+[[options]]
+name = "--no-permissions"
+description = "不显示权限列"
+
+[[options]]
+name = "--no-filesize"
+description = "不显示大小列"
+
+[[options]]
+name = "--no-user"
+description = "不显示属主列"
+
+[[options]]
+name = "--no-time"
+description = "不显示时间列"
+
+[[options]]
+name = "--no-git"
+description = "不显示 Git 列（覆盖 --git 系列）"
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = "--stdin"
+description = "从标准输入逐行读取文件名"
+
+[[options]]
+name = ["-?", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["-v", "--version"]
+description = "显示版本"

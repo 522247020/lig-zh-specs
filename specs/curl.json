@@ -1,0 +1,1484 @@
+{
+  "name": "curl",
+  "description": "传输 URL",
+  "options": [
+    {
+      "name": [
+        "-a",
+        "--append"
+      ],
+      "description": "上传时追加到目标文件"
+    },
+    {
+      "name": [
+        "-E",
+        "--cert"
+      ],
+      "description": "客户端证书文件及密码",
+      "args": {
+        "name": "certificate[:password]"
+      }
+    },
+    {
+      "name": [
+        "-K",
+        "--config"
+      ],
+      "description": "从文件读取配置",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-C",
+        "--continue-at"
+      ],
+      "description": "断点续传的起始偏移",
+      "args": {
+        "name": "offset"
+      }
+    },
+    {
+      "name": [
+        "-b",
+        "--cookie"
+      ],
+      "description": "从字符串或文件发送 cookie",
+      "args": {
+        "name": "data or filename",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-c",
+        "--cookie-jar"
+      ],
+      "description": "操作后将 cookie 写入 <filename>",
+      "args": {
+        "name": "filename",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-d",
+        "--data"
+      ],
+      "description": "HTTP POST 数据",
+      "insertValue": "-d '{cursor}'",
+      "args": {
+        "name": "data"
+      },
+      "isRepeatable": true
+    },
+    {
+      "name": [
+        "-q",
+        "--disable"
+      ],
+      "description": "禁用 .curlrc"
+    },
+    {
+      "name": [
+        "-D",
+        "--dump-header"
+      ],
+      "description": "将收到的响应头写入 <filename>",
+      "args": {
+        "name": "filename",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-f",
+        "--fail"
+      ],
+      "description": "HTTP 出错时静默失败，无输出"
+    },
+    {
+      "name": [
+        "-F",
+        "--form"
+      ],
+      "description": "指定 multipart MIME 数据",
+      "args": {
+        "name": "content"
+      },
+      "isRepeatable": true
+    },
+    {
+      "name": [
+        "-P",
+        "--ftp-port"
+      ],
+      "description": "用 PORT 代替 PASV",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": [
+        "-G",
+        "--get"
+      ],
+      "description": "将 POST 数据放入 URL 并使用 GET"
+    },
+    {
+      "name": [
+        "-g",
+        "--globoff"
+      ],
+      "description": "禁用 {} 和 [] 的 URL 序列与范围"
+    },
+    {
+      "name": [
+        "-I",
+        "--head"
+      ],
+      "description": "仅显示文档信息"
+    },
+    {
+      "name": [
+        "-H",
+        "--header"
+      ],
+      "description": "向服务端发送自定义请求头",
+      "args": {
+        "name": "header/file",
+        "suggestions": [
+          "Content-Type: application/json",
+          "Content-Type: application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    {
+      "name": [
+        "-h",
+        "--help"
+      ],
+      "description": "显示此帮助信息"
+    },
+    {
+      "name": [
+        "-0",
+        "--http1.0"
+      ],
+      "description": "使用 HTTP 1.0"
+    },
+    {
+      "name": [
+        "-i",
+        "--include"
+      ],
+      "description": "输出中包含协议响应头"
+    },
+    {
+      "name": [
+        "-k",
+        "--insecure"
+      ],
+      "description": "使用 SSL 时允许不安全的连接"
+    },
+    {
+      "name": [
+        "-4",
+        "--ipv4"
+      ],
+      "description": "将名称解析为 IPv4 地址"
+    },
+    {
+      "name": [
+        "-6",
+        "--ipv6"
+      ],
+      "description": "将名称解析为 IPv6 地址"
+    },
+    {
+      "name": [
+        "-j",
+        "--junk-session-cookies"
+      ],
+      "description": "忽略从文件读取的会话 cookie"
+    },
+    {
+      "name": [
+        "-l",
+        "--list-only"
+      ],
+      "description": "仅列出模式"
+    },
+    {
+      "name": [
+        "-L",
+        "--location"
+      ],
+      "description": "跟随重定向"
+    },
+    {
+      "name": [
+        "-M",
+        "--manual"
+      ],
+      "description": "显示完整手册"
+    },
+    {
+      "name": [
+        "-m",
+        "--max-time"
+      ],
+      "description": "传输允许的最长时间",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": [
+        "-n",
+        "--netrc"
+      ],
+      "description": "强制从 .netrc 读取用户名和密码"
+    },
+    {
+      "name": [
+        "-:",
+        "--next"
+      ],
+      "description": "让下一个 URL 使用独立选项集"
+    },
+    {
+      "name": [
+        "-N",
+        "--no-buffer"
+      ],
+      "description": "禁用输出流缓冲"
+    },
+    {
+      "name": [
+        "-o",
+        "--output"
+      ],
+      "description": "写入文件而非 stdout",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-#",
+        "--progress-bar"
+      ],
+      "description": "以进度条显示传输进度"
+    },
+    {
+      "name": [
+        "-x",
+        "--proxy"
+      ],
+      "description": "[protocol://]host[:port] 使用此代理"
+    },
+    {
+      "name": [
+        "-U",
+        "--proxy-user"
+      ],
+      "description": "代理用户名和密码",
+      "args": {
+        "name": "user:password"
+      }
+    },
+    {
+      "name": [
+        "-p",
+        "--proxytunnel"
+      ],
+      "description": "通过 HTTP 代理隧道（CONNECT）操作"
+    },
+    {
+      "name": [
+        "-Q",
+        "--quote"
+      ],
+      "description": "传输前向服务端发送命令"
+    },
+    {
+      "name": [
+        "-r",
+        "--range"
+      ],
+      "description": "仅获取 RANGE 范围内的字节",
+      "args": {
+        "name": "range"
+      }
+    },
+    {
+      "name": [
+        "-e",
+        "--referer"
+      ],
+      "description": "引用页 URL",
+      "args": {
+        "name": "URL"
+      }
+    },
+    {
+      "name": [
+        "-J",
+        "--remote-header-name"
+      ],
+      "description": "使用请求头提供的文件名"
+    },
+    {
+      "name": [
+        "-O",
+        "--remote-name"
+      ],
+      "description": "输出到与远程文件同名的文件"
+    },
+    {
+      "name": [
+        "-R",
+        "--remote-time"
+      ],
+      "description": "本地输出使用远程文件时间"
+    },
+    {
+      "name": [
+        "-X",
+        "--request"
+      ],
+      "description": "指定要使用的请求命令",
+      "args": {
+        "name": "command",
+        "suggestions": [
+          "GET",
+          "HEAD",
+          "POST",
+          "PUT",
+          "DELETE",
+          "CONNECT",
+          "OPTIONS",
+          "TRACE",
+          "PATCH"
+        ]
+      }
+    },
+    {
+      "name": [
+        "-S",
+        "--show-error"
+      ],
+      "description": "即使使用 -s 也显示错误"
+    },
+    {
+      "name": [
+        "-s",
+        "--silent"
+      ],
+      "description": "静默模式"
+    },
+    {
+      "name": [
+        "-Y",
+        "--speed-limit"
+      ],
+      "description": "低于此速度时停止传输",
+      "args": {
+        "name": "speed"
+      }
+    },
+    {
+      "name": [
+        "-y",
+        "--speed-time"
+      ],
+      "description": "超过此时间触发 'speed-limit' 中止",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": [
+        "-2",
+        "--sslv2"
+      ],
+      "description": "使用 SSLv2"
+    },
+    {
+      "name": [
+        "-3",
+        "--sslv3"
+      ],
+      "description": "使用 SSLv3"
+    },
+    {
+      "name": [
+        "-t",
+        "--telnet-option"
+      ],
+      "description": "设置 telnet 选项",
+      "args": {
+        "name": "val"
+      }
+    },
+    {
+      "name": [
+        "-z",
+        "--time-cond"
+      ],
+      "description": "按时间条件传输",
+      "args": {
+        "name": "time"
+      }
+    },
+    {
+      "name": [
+        "-1",
+        "--tlsv1"
+      ],
+      "description": "使用 TLSv1.0 或更高版本"
+    },
+    {
+      "name": [
+        "-T",
+        "--upload-file"
+      ],
+      "description": "将本地 FILE 传输到目标",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "-B",
+        "--use-ascii"
+      ],
+      "description": "使用 ASCII/文本传输"
+    },
+    {
+      "name": [
+        "-u",
+        "--user"
+      ],
+      "description": "服务端用户名和密码",
+      "args": {
+        "name": "user:password"
+      }
+    },
+    {
+      "name": [
+        "-A",
+        "--user-agent"
+      ],
+      "description": "向服务端发送 User-Agent <name>",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": [
+        "-v",
+        "--verbose"
+      ],
+      "description": "输出更详细的运行信息"
+    },
+    {
+      "name": [
+        "-V",
+        "--version"
+      ],
+      "description": "显示版本号并退出"
+    },
+    {
+      "name": [
+        "-w",
+        "--write-out"
+      ],
+      "description": "完成后按 FORMAT 输出",
+      "args": {
+        "name": "format"
+      }
+    },
+    {
+      "name": "--abstract-unix-socket",
+      "description": "通过抽象 Unix 域 socket 连接",
+      "args": {
+        "name": "path"
+      }
+    },
+    {
+      "name": "--alt-svc",
+      "description": "用此缓存文件启用 alt-svc",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--anyauth",
+      "description": "任选一种认证方法"
+    },
+    {
+      "name": "--basic",
+      "description": "使用 HTTP Basic 认证"
+    },
+    {
+      "name": "--cacert",
+      "description": "用于校验对端的 CA 证书",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--capath",
+      "description": "用于校验对端的 CA 目录",
+      "args": {
+        "name": "dir",
+        "template": "folders"
+      }
+    },
+    {
+      "name": "--cert-status",
+      "description": "校验服务端证书状态"
+    },
+    {
+      "name": "--cert-type",
+      "description": "证书文件类型",
+      "args": {
+        "name": "type",
+        "suggestions": [
+          "DER",
+          "PEM",
+          "ENG"
+        ]
+      }
+    },
+    {
+      "name": "--ciphers",
+      "description": "要使用的 SSL 加密套件",
+      "args": {
+        "name": "list"
+      }
+    },
+    {
+      "name": "--compressed",
+      "description": "请求压缩的响应"
+    },
+    {
+      "name": "--compressed-ssh",
+      "description": "启用 SSH 压缩"
+    },
+    {
+      "name": "--connect-timeout",
+      "description": "连接允许的最长时间",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": "--connect-to",
+      "description": "连接到指定主机",
+      "args": {
+        "name": "HOST1:PORT1:HOST2:PORT2"
+      }
+    },
+    {
+      "name": "--create-dirs",
+      "description": "创建所需的本地目录层级"
+    },
+    {
+      "name": "--crlf",
+      "description": "上传时将 LF 转为 CRLF"
+    },
+    {
+      "name": "--crlfile",
+      "description": "从给定文件取 PEM 格式 CRL 列表",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--data-ascii",
+      "description": "HTTP POST ASCII 数据",
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": "--data-binary",
+      "description": "HTTP POST 二进制数据",
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": "--data-raw",
+      "description": "HTTP POST 数据，允许 @",
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": "--data-urlencode",
+      "description": "URL 编码的 HTTP POST 数据",
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": "--delegation",
+      "description": "GSS-API 委派权限",
+      "args": {
+        "name": "LEVEL"
+      }
+    },
+    {
+      "name": "--digest",
+      "description": "使用 HTTP Digest 认证"
+    },
+    {
+      "name": "--disable-eprt",
+      "description": "禁止使用 EPRT 或 LPRT"
+    },
+    {
+      "name": "--disable-epsv",
+      "description": "禁止使用 EPSV"
+    },
+    {
+      "name": "--disallow-username-in-url",
+      "description": "禁止 URL 中包含用户名"
+    },
+    {
+      "name": "--dns-interface",
+      "description": "DNS 请求使用的接口",
+      "args": {
+        "name": "interface"
+      }
+    },
+    {
+      "name": "--dns-ipv4-addr",
+      "description": "DNS 请求使用的 IPv4 地址",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": "--dns-ipv6-addr",
+      "description": "DNS 请求使用的 IPv6 地址",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": "--dns-servers",
+      "description": "要使用的 DNS 服务器地址",
+      "args": {
+        "name": "addresses"
+      }
+    },
+    {
+      "name": "--doh-url",
+      "description": "通过 DOH 解析主机名",
+      "args": {
+        "name": "URL"
+      }
+    },
+    {
+      "name": "--egd-file",
+      "description": "用于随机数据的 EGD socket 路径",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--engine",
+      "description": "要使用的加密引擎",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--etag-compare",
+      "description": "用给定文件的 ETag 发起条件请求",
+      "args": {
+        "name": "file"
+      }
+    },
+    {
+      "name": "--etag-save",
+      "description": "将 HTTP ETag 保存到指定文件",
+      "args": {
+        "name": "file"
+      }
+    },
+    {
+      "name": "--expect100-timeout",
+      "description": "等待 100-continue 的时长",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": "--fail-early",
+      "description": "首次传输出错即失败，不继续"
+    },
+    {
+      "name": "--fail-with-body",
+      "description": "HTTP 出错时返回错误并输出响应内容"
+    },
+    {
+      "name": "--false-start",
+      "description": "启用 TLS False Start"
+    },
+    {
+      "name": "--form-string",
+      "description": "指定 multipart MIME 数据",
+      "args": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "--ftp-account",
+      "description": "账户数据字符串",
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": "--ftp-alternative-to-user",
+      "description": "替换 USER [name] 的字符串",
+      "args": {
+        "name": "command"
+      }
+    },
+    {
+      "name": "--ftp-create-dirs",
+      "description": "远程目录不存在时创建"
+    },
+    {
+      "name": "--ftp-method",
+      "description": "控制 CWD 的使用",
+      "args": {
+        "name": "method"
+      }
+    },
+    {
+      "name": "--ftp-pasv",
+      "description": "用 PASV/EPSV 代替 PORT"
+    },
+    {
+      "name": "--ftp-pret",
+      "description": "PASV 之前发送 PRET"
+    },
+    {
+      "name": "--ftp-skip-pasv-ip",
+      "description": "PASV 时跳过 IP 地址"
+    },
+    {
+      "name": "--ftp-ssl-ccc",
+      "description": "认证后发送 CCC"
+    },
+    {
+      "name": "--ftp-ssl-ccc-mode",
+      "description": "设置 CCC 模式",
+      "args": {
+        "name": "mode",
+        "suggestions": [
+          "active",
+          "passive"
+        ]
+      }
+    },
+    {
+      "name": "--ftp-ssl-control",
+      "description": "FTP 登录用 SSL/TLS，传输不加密"
+    },
+    {
+      "name": "--happy-eyeballs-timeout-ms",
+      "description": "尝试 IPv4 前等待 IPv6 的毫秒数",
+      "args": {
+        "name": "milliseconds"
+      }
+    },
+    {
+      "name": "--haproxy-protocol",
+      "description": "发送 HAProxy PROXY 协议 v1 头"
+    },
+    {
+      "name": "--hostpubmd5",
+      "description": "主机公钥允许的 MD5 哈希",
+      "args": {
+        "name": "md5"
+      }
+    },
+    {
+      "name": "--http0.9",
+      "description": "允许 HTTP 0.9 响应"
+    },
+    {
+      "name": "--http1.1",
+      "description": "使用 HTTP 1.1"
+    },
+    {
+      "name": "--http2",
+      "description": "使用 HTTP 2"
+    },
+    {
+      "name": "--http2-prior-knowledge",
+      "description": "使用 HTTP 2，不用 HTTP/1.1 Upgrade"
+    },
+    {
+      "name": "--ignore-content-length",
+      "description": "忽略远程资源大小"
+    },
+    {
+      "name": "--interface",
+      "description": "使用网络 INTERFACE（或地址）",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--keepalive-time",
+      "description": "keepalive 探测的间隔时间",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": "--key",
+      "description": "私钥文件名",
+      "args": {
+        "name": "key"
+      }
+    },
+    {
+      "name": "--key-type",
+      "description": "私钥文件类型",
+      "args": {
+        "name": "type",
+        "suggestions": [
+          "DER",
+          "PEM",
+          "ENG"
+        ]
+      }
+    },
+    {
+      "name": "--krb",
+      "description": "以安全级别 <level> 启用 Kerberos",
+      "args": {
+        "name": "level"
+      }
+    },
+    {
+      "name": "--libcurl",
+      "description": "输出等价的 libcurl 代码",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--limit-rate",
+      "description": "将传输速度限制为 RATE",
+      "args": {
+        "name": "speed"
+      }
+    },
+    {
+      "name": "--local-port",
+      "description": "本地端口号强制使用 RANGE",
+      "args": {
+        "name": "num/range"
+      }
+    },
+    {
+      "name": "--location-trusted",
+      "description": "类似 --location，并向其他主机发送认证"
+    },
+    {
+      "name": "--login-options",
+      "description": "服务端登录选项",
+      "args": {
+        "name": "options"
+      }
+    },
+    {
+      "name": "--mail-auth",
+      "description": "原始邮件的发起者地址",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": "--mail-from",
+      "description": "从这个地址发邮件",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": "--mail-rcpt",
+      "description": "邮件发送到此地址",
+      "args": {
+        "name": "address"
+      }
+    },
+    {
+      "name": "--max-filesize",
+      "description": "下载文件的最大大小",
+      "args": {
+        "name": "bytes"
+      }
+    },
+    {
+      "name": "--max-redirs",
+      "description": "允许的最大重定向次数",
+      "args": {
+        "name": "num"
+      }
+    },
+    {
+      "name": "--metalink",
+      "description": "将给定 URL 按 metalink XML 处理"
+    },
+    {
+      "name": "--negotiate",
+      "description": "使用 HTTP Negotiate（SPNEGO）认证"
+    },
+    {
+      "name": "--netrc-file",
+      "description": "指定 netrc 的 FILE",
+      "args": {
+        "name": "filename",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--netrc-optional",
+      "description": "使用 .netrc 或 URL"
+    },
+    {
+      "name": "--no-alpn",
+      "description": "禁用 ALPN TLS 扩展"
+    },
+    {
+      "name": "--no-keepalive",
+      "description": "禁用连接的 TCP keepalive"
+    },
+    {
+      "name": "--no-npn",
+      "description": "禁用 NPN TLS 扩展"
+    },
+    {
+      "name": "--no-sessionid",
+      "description": "禁用 SSL 会话 ID 复用"
+    },
+    {
+      "name": "--noproxy",
+      "description": "不使用代理的主机列表",
+      "args": {
+        "name": "no-proxy-list"
+      }
+    },
+    {
+      "name": "--ntlm",
+      "description": "使用 HTTP NTLM 认证"
+    },
+    {
+      "name": "--ntlm-wb",
+      "description": "使用带 winbind 的 HTTP NTLM 认证"
+    },
+    {
+      "name": "--oauth2-bearer",
+      "description": "OAuth 2 Bearer 令牌",
+      "args": {
+        "name": "token"
+      }
+    },
+    {
+      "name": "--pass",
+      "description": "私钥的密码短语",
+      "args": {
+        "name": "phrase"
+      }
+    },
+    {
+      "name": "--path-as-is",
+      "description": "不压缩 URL 路径中的 .. 序列"
+    },
+    {
+      "name": "--pinnedpubkey",
+      "description": "用于校验对端的 FILE/HASHES 公钥",
+      "args": {
+        "name": "hashes"
+      }
+    },
+    {
+      "name": "--post301",
+      "description": "跟随 301 后不改为 GET"
+    },
+    {
+      "name": "--post302",
+      "description": "跟随 302 后不改为 GET"
+    },
+    {
+      "name": "--post303",
+      "description": "跟随 303 后不改为 GET"
+    },
+    {
+      "name": "--preproxy",
+      "description": "[protocol://]host[:port] 优先用此代理"
+    },
+    {
+      "name": "--proto",
+      "description": "启用或禁用 PROTOCOLS",
+      "args": {
+        "name": "protocols"
+      }
+    },
+    {
+      "name": "--proto-default",
+      "description": "缺少协议时使用 PROTOCOL",
+      "args": {
+        "name": "protocol"
+      }
+    },
+    {
+      "name": "--proto-redir",
+      "description": "重定向时启用或禁用 PROTOCOLS",
+      "args": {
+        "name": "protocols"
+      }
+    },
+    {
+      "name": "--proxy-anyauth",
+      "description": "任选一种代理认证方法"
+    },
+    {
+      "name": "--proxy-basic",
+      "description": "代理使用 Basic 认证"
+    },
+    {
+      "name": "--proxy-cacert",
+      "description": "代理校验对端用的 CA 证书",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--proxy-capath",
+      "description": "代理校验对端用的 CA 目录",
+      "args": {
+        "name": "dir",
+        "template": "folders"
+      }
+    },
+    {
+      "name": "--proxy-cert",
+      "description": "为代理设置客户端证书",
+      "args": {
+        "name": "cert[:passwd]"
+      }
+    },
+    {
+      "name": "--proxy-cert-type",
+      "description": "HTTPS 代理的客户端证书类型",
+      "args": {
+        "name": "type"
+      }
+    },
+    {
+      "name": "--proxy-ciphers",
+      "description": "代理使用的 SSL 加密套件",
+      "args": {
+        "name": "list"
+      }
+    },
+    {
+      "name": "--proxy-crlfile",
+      "description": "为代理设置 CRL 列表",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--proxy-digest",
+      "description": "代理使用 Digest 认证"
+    },
+    {
+      "name": "--proxy-header",
+      "description": "向代理发送自定义请求头",
+      "args": {
+        "name": "header/file",
+        "suggestions": [
+          "Content-Type: application/json",
+          "Content-Type: application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    {
+      "name": "--proxy-insecure",
+      "description": "连 HTTPS 代理时不校验代理"
+    },
+    {
+      "name": "--proxy-key",
+      "description": "HTTPS 代理的私钥",
+      "args": {
+        "name": "key"
+      }
+    },
+    {
+      "name": "--proxy-key-type",
+      "description": "代理的私钥文件类型",
+      "args": {
+        "name": "type"
+      }
+    },
+    {
+      "name": "--proxy-negotiate",
+      "description": "代理用 HTTP Negotiate（SPNEGO）认证"
+    },
+    {
+      "name": "--proxy-ntlm",
+      "description": "代理使用 NTLM 认证"
+    },
+    {
+      "name": "--proxy-pass",
+      "description": "HTTPS 代理私钥的密码短语",
+      "args": {
+        "name": "phrase"
+      }
+    },
+    {
+      "name": "--proxy-pinnedpubkey",
+      "description": "用于校验代理的 FILE/HASHES 公钥",
+      "args": {
+        "name": "hashes"
+      }
+    },
+    {
+      "name": "--proxy-service-name",
+      "description": "SPNEGO 代理服务名",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--proxy-ssl-allow-beast",
+      "description": "HTTPS 代理允许安全缺陷以兼容"
+    },
+    {
+      "name": "--proxy-tls13-ciphers",
+      "description": "TLS 1.3 代理加密套件",
+      "args": {
+        "name": "ciphersuite"
+      }
+    },
+    {
+      "name": "--proxy-tlsauthtype",
+      "description": "HTTPS 代理的 TLS 认证类型",
+      "args": {
+        "name": "type"
+      }
+    },
+    {
+      "name": "--proxy-tlspassword",
+      "description": "HTTPS 代理的 TLS 密码",
+      "args": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "--proxy-tlsuser",
+      "description": "HTTPS 代理的 TLS 用户名",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--proxy-tlsv1",
+      "description": "HTTPS 代理使用 TLSv1"
+    },
+    {
+      "name": "--proxy1.0",
+      "description": "在指定端口使用 HTTP/1.0 代理",
+      "args": {
+        "name": "host[:port]"
+      }
+    },
+    {
+      "name": "--pubkey",
+      "description": "SSH 公钥文件名",
+      "args": {
+        "name": "key",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--random-file",
+      "description": "读取随机数据的文件",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--raw",
+      "description": "使用 HTTP \"raw\"，不做传输解码"
+    },
+    {
+      "name": "--remote-name-all",
+      "description": "所有 URL 都使用远程文件名"
+    },
+    {
+      "name": "--request-target",
+      "description": "指定此请求的目标"
+    },
+    {
+      "name": "--resolve",
+      "description": "将 host+port 解析到此地址",
+      "args": {
+        "name": "host:port:address[,address]..."
+      }
+    },
+    {
+      "name": "--retry",
+      "description": "出现临时问题时重试请求",
+      "args": {
+        "name": "num"
+      }
+    },
+    {
+      "name": "--retry-connrefused",
+      "description": "连接被拒时重试（配合 --retry）"
+    },
+    {
+      "name": "--retry-delay",
+      "description": "重试之间的等待时间",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": "--retry-max-time",
+      "description": "仅在此时间段内重试",
+      "args": {
+        "name": "seconds"
+      }
+    },
+    {
+      "name": "--sasl-ir",
+      "description": "SASL 认证中启用初始响应"
+    },
+    {
+      "name": "--service-name",
+      "description": "SPNEGO 服务名",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--socks4",
+      "description": "指定 host + port 的 SOCKS4 代理",
+      "args": {
+        "name": "host[:port]"
+      }
+    },
+    {
+      "name": "--socks4a",
+      "description": "指定 host + port 的 SOCKS4a 代理",
+      "args": {
+        "name": "host[:port]"
+      }
+    },
+    {
+      "name": "--socks5",
+      "description": "指定 host + port 的 SOCKS5 代理",
+      "args": {
+        "name": "host[:port]"
+      }
+    },
+    {
+      "name": "--socks5-basic",
+      "description": "SOCKS5 代理启用用户名/密码认证"
+    },
+    {
+      "name": "--socks5-gssapi",
+      "description": "SOCKS5 代理启用 GSS-API 认证"
+    },
+    {
+      "name": "--socks5-gssapi-nec",
+      "description": "兼容 NEC SOCKS5 服务端"
+    },
+    {
+      "name": "--socks5-gssapi-service",
+      "description": "GSS-API 的 SOCKS5 代理服务名",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--socks5-hostname",
+      "description": "SOCKS5 代理，将主机名传给代理",
+      "args": {
+        "name": "host[:port]"
+      }
+    },
+    {
+      "name": "--ssl",
+      "description": "尝试 SSL/TLS"
+    },
+    {
+      "name": "--ssl-auto-client-cert",
+      "description": "自动获取并使用客户端证书"
+    },
+    {
+      "name": "--ssl-allow-beast",
+      "description": "允许安全缺陷以改善兼容性"
+    },
+    {
+      "name": "--ssl-no-revoke",
+      "description": "禁用证书吊销检查（Schannel）"
+    },
+    {
+      "name": "--ssl-reqd",
+      "description": "要求 SSL/TLS"
+    },
+    {
+      "name": "--stderr",
+      "description": "重定向 stderr 的位置"
+    },
+    {
+      "name": "--styled-output",
+      "description": "为 HTTP 头启用样式化输出"
+    },
+    {
+      "name": "--suppress-connect-headers",
+      "description": "抑制代理 CONNECT 响应头"
+    },
+    {
+      "name": "--tcp-fastopen",
+      "description": "使用 TCP Fast Open"
+    },
+    {
+      "name": "--tcp-nodelay",
+      "description": "使用 TCP_NODELAY 选项"
+    },
+    {
+      "name": "--tftp-blksize",
+      "description": "设置 TFTP BLKSIZE 选项",
+      "args": {
+        "name": "value"
+      }
+    },
+    {
+      "name": "--tftp-no-options",
+      "description": "不发送任何 TFTP 选项"
+    },
+    {
+      "name": "--tls-max",
+      "description": "设置允许的最高 TLS 版本",
+      "args": {
+        "name": "VERSION"
+      }
+    },
+    {
+      "name": "--tls13-ciphers",
+      "description": "要使用的 TLS 1.3 加密套件",
+      "args": {
+        "name": "list"
+      }
+    },
+    {
+      "name": "--tlsauthtype",
+      "description": "TLS 认证类型",
+      "args": {
+        "name": "type"
+      }
+    },
+    {
+      "name": "--tlspassword",
+      "description": "TLS 密码"
+    },
+    {
+      "name": "--tlsuser",
+      "description": "TLS 用户名",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "--tlsv1.0",
+      "description": "使用 TLSv1.0 或更高版本"
+    },
+    {
+      "name": "--tlsv1.1",
+      "description": "使用 TLSv1.1 或更高版本"
+    },
+    {
+      "name": "--tlsv1.2",
+      "description": "使用 TLSv1.2 或更高版本"
+    },
+    {
+      "name": "--tlsv1.3",
+      "description": "使用 TLSv1.3 或更高版本"
+    },
+    {
+      "name": "--tr-encoding",
+      "description": "请求压缩的传输编码"
+    },
+    {
+      "name": "--trace",
+      "description": "将调试跟踪写入 FILE",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--trace-ascii",
+      "description": "类似 --trace，但不输出十六进制",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "--trace-time",
+      "description": "为跟踪/详细输出加时间戳"
+    },
+    {
+      "name": "--unix-socket",
+      "description": "通过此 Unix 域 socket 连接",
+      "args": {
+        "name": "path"
+      }
+    },
+    {
+      "name": "--url",
+      "description": "要操作的 URL",
+      "args": {
+        "name": "url"
+      }
+    },
+    {
+      "name": "--xattr",
+      "description": "将元数据存入扩展文件属性"
+    }
+  ],
+  "args": {
+    "name": "URL"
+  }
+}

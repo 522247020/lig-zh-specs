@@ -1,0 +1,751 @@
+# yay v13.1.0 / libalpm v16.0.1 的中文描述 spec
+# yay 的主操作以 - 开头，lig 不能把它们当子命令，所以全部扁平为选项
+# 操作前缀：S/Q/R/U/F/T/D/Y/B/G/P/W；全局选项不加前缀
+# 自检：lig specs check yay / lig complete "yay -S -"
+
+name = "yay"
+description = "AUR 助手（兼容 pacman 操作）"
+
+args = { name = "软件包", isVariadic = true }
+
+# ── 操作（用法行里的 -X --long） ────────────────────────────
+[[options]]
+name = ["-S", "--sync"]
+description = "操作：安装、升级与同步软件包"
+
+[[options]]
+name = ["-Q", "--query"]
+description = "操作：查询已安装的软件包"
+
+[[options]]
+name = ["-R", "--remove"]
+description = "操作：删除软件包"
+
+[[options]]
+name = ["-U", "--upgrade"]
+description = "操作：从本地包文件安装/升级"
+
+[[options]]
+name = ["-F", "--files"]
+description = "操作：按文件名查所属软件包"
+
+[[options]]
+name = ["-T", "--deptest"]
+description = "操作：检查依赖是否满足"
+
+[[options]]
+name = ["-D", "--database"]
+description = "操作：修改软件包数据库"
+
+[[options]]
+name = ["-Y", "--yay"]
+description = "操作：修改 yay 自身设置"
+
+[[options]]
+name = ["-B", "--build"]
+description = "操作：由 PKGBUILD 构建软件包"
+
+[[options]]
+name = ["-G", "--getpkgbuild"]
+description = "操作：下载 AUR 包的 PKGBUILD"
+
+[[options]]
+name = ["-P", "--show"]
+description = "操作：查看统计、配置与新闻"
+
+[[options]]
+name = ["-W", "--web"]
+description = "操作：给 AUR 包投票或取消"
+
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"
+
+# ── 目标来源与永久设置（yay 专属） ─────────────────────────
+# 注：--batchinstall、--combinedupgrade、--separatesources 未出现在
+# --help 里，取自 man yay 并实测可被 v13.1.0 接受
+[[options]]
+name = ["-N", "--repo"]
+description = "把目标当作官方 repo 中的包"
+
+[[options]]
+name = ["-a", "--aur"]
+description = "把目标当作 AUR 中的包"
+
+[[options]]
+name = ["--save"]
+description = "把本次选项写回 yay 配置文件"
+
+[[options]]
+name = ["--aururl"]
+description = "设置 AUR 的基础地址"
+args = { name = "地址" }
+
+[[options]]
+name = ["--aurrpcurl"]
+description = "设置 AUR RPC 端点地址"
+args = { name = "地址" }
+
+[[options]]
+name = ["--builddir"]
+description = "下载并构建 PKGBUILD 的目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--editor"]
+description = "编辑 PKGBUILD 使用的编辑器"
+args = { name = "编辑器", template = "filepaths" }
+
+[[options]]
+name = ["--editorflags"]
+description = "传给编辑器的额外参数"
+args = { name = "参数" }
+
+[[options]]
+name = ["--makepkg"]
+description = "要使用的 makepkg 命令"
+args = { name = "命令", template = "filepaths" }
+
+[[options]]
+name = ["--mflags"]
+description = "传给 makepkg 的额外参数"
+args = { name = "参数" }
+
+[[options]]
+name = ["--pacman"]
+description = "要使用的 pacman 命令"
+args = { name = "命令", template = "filepaths" }
+
+[[options]]
+name = ["--git"]
+description = "要使用的 git 命令"
+args = { name = "命令", template = "filepaths" }
+
+[[options]]
+name = ["--gitflags"]
+description = "传给 git 的额外参数"
+args = { name = "参数" }
+
+[[options]]
+name = ["--gpg"]
+description = "要使用的 gpg 命令"
+args = { name = "命令", template = "filepaths" }
+
+[[options]]
+name = ["--gpgflags"]
+description = "传给 gpg 的额外参数"
+args = { name = "参数" }
+
+[[options]]
+name = ["--config"]
+description = "指定另外的 pacman.conf 配置文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["--makepkgconf"]
+description = "要使用的 makepkg.conf 配置文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["--nomakepkgconf"]
+description = "使用默认的 makepkg.conf"
+
+[[options]]
+name = ["--requestsplitn"]
+description = "每次 AUR 请求最多查询的包数"
+args = { name = "数量", suggestions = ["50", "100", "150", "200"] }
+
+[[options]]
+name = ["--completioninterval"]
+description = "补全缓存自动刷新的间隔天数"
+args = { name = "天数", suggestions = ["1", "3", "7", "14", "30"] }
+
+[[options]]
+name = ["--sortby"]
+description = "按指定字段排序 AUR 搜索结果"
+args = { name = "字段", suggestions = [
+  { name = "votes", description = "按投票数" },
+  { name = "popularity", description = "按流行度" },
+  { name = "name", description = "按包名" },
+  { name = "base", description = "按基础包名" },
+  { name = "submitted", description = "按提交时间" },
+  { name = "modified", description = "按修改时间" },
+] }
+
+[[options]]
+name = ["--searchby"]
+description = "按指定字段搜索 AUR 软件包"
+args = { name = "字段", suggestions = [
+  { name = "name", description = "只看包名" },
+  { name = "name-desc", description = "包名与描述（默认）" },
+  { name = "maintainer", description = "维护者" },
+  { name = "depends", description = "运行时依赖" },
+  { name = "checkdepends", description = "检查依赖" },
+  { name = "makedepends", description = "构建依赖" },
+  { name = "optdepends", description = "可选依赖" },
+  { name = "provides", description = "提供的包名" },
+  { name = "conflicts", description = "冲突的包" },
+  { name = "replaces", description = "替换的包" },
+  { name = "groups", description = "软件包组" },
+  { name = "keywords", description = "关键词" },
+  { name = "comaintainers", description = "共同维护者" },
+] }
+
+[[options]]
+name = ["--answerclean"]
+description = "预设清理构建菜单的回答"
+args = { name = "回答", suggestions = [
+  { name = "All", description = "全部包" },
+  { name = "None", description = "全部跳过" },
+  { name = "Installed", description = "仅已安装的包" },
+  { name = "NotInstalled", description = "仅未安装的包" },
+] }
+
+[[options]]
+name = ["--answerdiff"]
+description = "预设查看 diff 菜单的回答"
+args = { name = "回答", suggestions = ["All", "None", "Installed", "NotInstalled"] }
+
+[[options]]
+name = ["--answeredit"]
+description = "预设编辑 PKGBUILD 菜单的回答"
+args = { name = "回答", suggestions = ["All", "None", "Installed", "NotInstalled"] }
+
+[[options]]
+name = ["--answerupgrade"]
+description = "预设升级菜单的回答"
+args = { name = "回答", suggestions = ["None", "All", "Repo", "^Repo"] }
+
+[[options]]
+name = ["--noanswerclean"]
+description = "取消清理菜单的预设回答"
+
+[[options]]
+name = ["--noanswerdiff"]
+description = "取消 diff 菜单的预设回答"
+
+[[options]]
+name = ["--noansweredit"]
+description = "取消编辑 PKGBUILD 的预设回答"
+
+[[options]]
+name = ["--noanswerupgrade"]
+description = "取消升级菜单的预设回答"
+
+[[options]]
+name = ["--cleanmenu"]
+description = "显示清理构建文件的菜单"
+
+[[options]]
+name = ["--diffmenu"]
+description = "显示构建文件差异的菜单"
+
+[[options]]
+name = ["--editmenu"]
+description = "显示编辑或查看 PKGBUILD 的菜单"
+
+[[options]]
+name = ["--askremovemake"]
+description = "安装后询问是否删构建依赖"
+
+[[options]]
+name = ["--askyesremovemake"]
+description = "安装后询问并默认删构建依赖"
+
+[[options]]
+name = ["--removemake"]
+description = "安装后删除构建依赖"
+
+[[options]]
+name = ["--noremovemake"]
+description = "安装后不删构建依赖"
+
+[[options]]
+name = ["--cleanafter"]
+description = "安装成功后删除构建源文件"
+
+[[options]]
+name = ["--keepsrc"]
+description = "构建后保留 pkg/ 与 src/"
+
+[[options]]
+name = ["--batchinstall"]
+description = "构建完整个队列再统一安装"
+
+[[options]]
+name = ["--bottomup"]
+description = "先列 AUR 结果，再列 repo"
+
+[[options]]
+name = ["--topdown"]
+description = "先列 repo 结果，再列 AUR"
+
+[[options]]
+name = ["--singlelineresults"]
+description = "搜索结果每条显示一行"
+
+[[options]]
+name = ["--doublelineresults"]
+description = "搜索结果每条显示两行（如 pacman）"
+
+[[options]]
+name = ["--devel"]
+description = "系统升级时检查开发版软件包"
+
+[[options]]
+name = ["--rebuild"]
+description = "一律重新构建目标软件包"
+
+[[options]]
+name = ["--rebuildall"]
+description = "重新构建所有 AUR 软件包"
+
+[[options]]
+name = ["--norebuild"]
+description = "缓存已是最新则跳过构建"
+
+[[options]]
+name = ["--rebuildtree"]
+description = "AUR 包已装也重新构建"
+
+[[options]]
+name = ["--redownload"]
+description = "一律重新下载 PKGBUILD"
+
+[[options]]
+name = ["--noredownload"]
+description = "缓存已是最新则跳过下载"
+
+[[options]]
+name = ["--redownloadall"]
+description = "重新下载所有 AUR 的 PKGBUILD"
+
+[[options]]
+name = ["--provides"]
+description = "搜索时一并匹配 provides"
+
+[[options]]
+name = ["--pgpfetch"]
+description = "提示从 PKGBUILD 导入 PGP 密钥"
+
+[[options]]
+name = ["--useask"]
+description = "用 pacman 的 ask 标记自动解冲突"
+
+[[options]]
+name = ["--combinedupgrade"]
+description = "系统升级时合并 repo 与 AUR 菜单"
+
+[[options]]
+name = ["--separatesources"]
+description = "查询结果按 repo/AUR 来源分开"
+
+[[options]]
+name = ["--sudo"]
+description = "要使用的 sudo 命令"
+args = { name = "命令", template = "filepaths" }
+
+[[options]]
+name = ["--sudoflags"]
+description = "传给 sudo 的额外参数"
+args = { name = "参数" }
+
+[[options]]
+name = ["--sudoloop"]
+description = "后台循环 sudo，避免超时"
+
+# ── 各操作共用的 pacman 兼容选项 ───────────────────────────
+[[options]]
+name = ["-b", "--dbpath"]
+description = "指定另外的数据库位置"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["-r", "--root"]
+description = "指定另外的安装根目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["-q", "--quiet"]
+description = "减少输出（D 下不显示成功消息）"
+
+[[options]]
+name = ["--arch"]
+description = "指定另外的架构"
+args = { name = "架构", suggestions = ["x86_64", "i686", "aarch64", "armv7h", "any"] }
+
+[[options]]
+name = ["--cachedir"]
+description = "指定另外的软件包缓存目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--color"]
+description = "彩色化输出"
+args = { name = "时机", suggestions = [
+  { name = "always", description = "总是彩色" },
+  { name = "auto", description = "自动判断" },
+  { name = "never", description = "从不彩色" },
+] }
+
+[[options]]
+name = ["--confirm"]
+description = "总是询问确认"
+
+[[options]]
+name = ["--noconfirm"]
+description = "不询问确认"
+
+[[options]]
+name = ["--debug"]
+description = "显示调试信息"
+
+[[options]]
+name = ["--disable-download-timeout"]
+description = "下载时使用宽松的超时"
+
+[[options]]
+name = ["--disable-sandbox"]
+description = "禁用下载进程的全部沙盒"
+
+[[options]]
+name = ["--disable-sandbox-filesystem"]
+description = "禁用下载沙盒的文件系统部分"
+
+[[options]]
+name = ["--disable-sandbox-syscalls"]
+description = "禁用下载沙盒的系统调用部分"
+
+[[options]]
+name = ["--gpgdir"]
+description = "指定 GnuPG 的主目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--hookdir"]
+description = "指定另外的钩子目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--logfile"]
+description = "指定另外的日志文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["--sysroot"]
+description = "在已挂载的 guest 系统中操作（仅 root）"
+args = { name = "目录", template = "folders" }
+
+# ── 有短名的操作专属选项 ───────────────────────────────────
+[[options]]
+name = ["-e", "--explicit"]
+description = "Q：只列出显式安装的软件包"
+
+[[options]]
+name = ["-f", "--force"]
+description = "G：强制下载已存在的 ABS 包"
+
+[[options]]
+name = ["-k", "--check"]
+description = "Q：检查包文件（-kk 属性）；D：校验数据库"
+isRepeatable = true
+
+[[options]]
+name = ["-l", "--list"]
+description = "S：列 repo 中的包；F/Q：列包文件"
+
+[[options]]
+name = ["-m", "--foreign"]
+description = "Q：列出不在同步库中的已安装包"
+
+[[options]]
+name = ["-o", "--owns"]
+description = "Q：查询哪个软件包拥有该文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-t", "--unrequired"]
+description = "Q：列出无人依赖的包（-tt 忽略可选）"
+isRepeatable = true
+
+[[options]]
+name = ["-x", "--regex"]
+description = "F：用正则表达式搜索"
+
+[[options]]
+name = ["-y", "--refresh"]
+description = "S/F：更新软件包数据库（-yy 强制）"
+isRepeatable = true
+
+# 与多个操作冲突的短名：合并说明，长名单独成项
+[[options]]
+name = ["-c"]
+description = "S：清旧包 Y：删无用依赖 Q：日志 R：级联 P：补全"
+isRepeatable = true
+
+[[options]]
+name = ["-d"]
+description = "S/R/U：跳过依赖检查 Q：列依赖 P：默认配置"
+isRepeatable = true
+
+[[options]]
+name = ["-g"]
+description = "S/Q：查看软件包组 P：显示当前配置"
+isRepeatable = true
+
+[[options]]
+name = ["-i"]
+description = "S/Q：查看包信息 B：构建并安装"
+isRepeatable = true
+
+[[options]]
+name = ["-n"]
+description = "R：不保存配置 Q：只列官方 repo 包"
+
+[[options]]
+name = ["-p"]
+description = "S/R/U：只打印 Q：查包文件 G：显示 PKGBUILD"
+
+[[options]]
+name = ["-s"]
+description = "S/Q：搜索 R：递归删依赖 P：统计"
+isRepeatable = true
+
+[[options]]
+name = ["-u"]
+description = "S：全系统升级 Q：可升级 R：不需要的包 W：取消投票"
+isRepeatable = true
+
+[[options]]
+name = ["-v"]
+description = "其他操作：详细输出 W：给 AUR 包投票"
+
+[[options]]
+name = ["-w"]
+description = "S/U：只下载 P：查看 Arch 新闻"
+
+# ── 操作专属长选项 ─────────────────────────────────────────
+[[options]]
+name = ["--clean"]
+description = "S/Y：清理旧包或无用依赖（-cc 加强）"
+isRepeatable = true
+
+[[options]]
+name = ["--changelog"]
+description = "Q：查看软件包的更新日志"
+
+[[options]]
+name = ["--cascade"]
+description = "R：同时删除依赖此包的所有包"
+
+[[options]]
+name = ["--complete"]
+description = "P：生成用于自动补全的结果"
+
+[[options]]
+name = ["--nodeps"]
+description = "S/R/U：跳过依赖检查（-dd 全部）"
+isRepeatable = true
+
+[[options]]
+name = ["--deps"]
+description = "Q：列出作为依赖安装的包"
+
+[[options]]
+name = ["--defaultconfig"]
+description = "P：显示 yay 的默认配置"
+
+[[options]]
+name = ["--groups"]
+description = "S/Q：查看软件包组的成员"
+isRepeatable = true
+
+[[options]]
+name = ["--currentconfig"]
+description = "P：显示当前的 yay 配置"
+
+[[options]]
+name = ["--info"]
+description = "S/Q：查看软件包信息（-ii 备份文件）"
+isRepeatable = true
+
+[[options]]
+name = ["--install"]
+description = "B：构建并安装 PKGBUILD"
+
+[[options]]
+name = ["--nosave"]
+description = "R：删除软件包时也删配置文件"
+
+[[options]]
+name = ["--native"]
+description = "Q：只列官方 repo 中的已安装包"
+
+[[options]]
+name = ["--print"]
+description = "S/R/U：只打印目标；G：显示 PKGBUILD"
+
+[[options]]
+name = ["--file"]
+description = "Q：查询指定的包文件而非数据库"
+args = { name = "软件包", template = "filepaths" }
+
+[[options]]
+name = ["--search"]
+description = "S/Q：按正则搜索软件包"
+args = { name = "正则" }
+
+[[options]]
+name = ["--recursive"]
+description = "R：删除不再需要的依赖（-ss 更彻底）"
+isRepeatable = true
+
+[[options]]
+name = ["--stats"]
+description = "P：显示系统软件包统计"
+
+[[options]]
+name = ["--sysupgrade"]
+description = "S：升级所有包（-uu 允许降级）"
+isRepeatable = true
+
+[[options]]
+name = ["--upgrades"]
+description = "Q：列出所有可升级的软件包"
+
+[[options]]
+name = ["--unneeded"]
+description = "R：删除不再被需要的软件包"
+
+[[options]]
+name = ["--unvote"]
+description = "W：取消对 AUR 包的投票"
+
+[[options]]
+name = ["--verbose"]
+description = "显示详细信息"
+
+[[options]]
+name = ["--vote"]
+description = "W：给 AUR 包投票"
+
+[[options]]
+name = ["--downloadonly"]
+description = "S/U：只下载，不安装或升级"
+
+[[options]]
+name = ["--news"]
+description = "P：显示 Arch 新闻"
+
+[[options]]
+name = ["--gendb"]
+description = "Y：生成开发版软件包的数据库"
+
+[[options]]
+name = ["--machinereadable"]
+description = "F：输出机器可读的结果"
+
+# ── 依赖与安装行为（S/R/U/D） ──────────────────────────────
+[[options]]
+name = ["--asdeps"]
+description = "D/S/U：标记为依赖安装"
+
+[[options]]
+name = ["--asexplicit"]
+description = "D/S/U：标记为显式安装"
+
+[[options]]
+name = ["--assume-installed"]
+description = "R/S/U：添加虚拟包以满足依赖"
+args = { name = "软件包=版本" }
+isRepeatable = true
+
+[[options]]
+name = ["--dbonly"]
+description = "R/S/U：只改数据库，不动文件"
+
+[[options]]
+name = ["--ignore"]
+description = "S/U：升级时忽略指定软件包"
+args = { name = "软件包" }
+isRepeatable = true
+
+[[options]]
+name = ["--ignoregroup"]
+description = "S/U：升级时忽略指定软件包组"
+args = { name = "软件包组" }
+isRepeatable = true
+
+[[options]]
+name = ["--needed"]
+description = "S/U：不重装已是最新的软件包"
+
+[[options]]
+name = ["--noprogressbar"]
+description = "R/S/U：下载时不显示进度条"
+
+[[options]]
+name = ["--noscriptlet"]
+description = "R/S/U：不执行安装小脚本"
+
+[[options]]
+name = ["--overwrite"]
+description = "S/U：覆盖冲突的文件"
+args = { name = "glob 模式" }
+isRepeatable = true
+
+[[options]]
+name = ["--print-format"]
+description = "R/S/U：指定打印目标的格式"
+args = { name = "格式" }
+
+# ── 常用组合短参数（lig 只把组合里最后一个字母记为已用，这些条目
+#    用于在弹窗里一次看到并插入整组）───────────────────────────
+[[options]]
+name = ["-Syu"]
+description = "同步并升级全部（含 AUR）"
+priority = 85
+
+[[options]]
+name = ["-Syyu"]
+description = "强制刷新数据库后升级全部"
+priority = 85
+
+[[options]]
+name = ["-Ss"]
+description = "搜索 repo 与 AUR"
+priority = 80
+
+[[options]]
+name = ["-Si"]
+description = "查看软件包信息（含 AUR）"
+priority = 80
+
+[[options]]
+name = ["-Sc"]
+description = "清理旧软件包缓存"
+priority = 80
+
+[[options]]
+name = ["-Rns"]
+description = "删除包、配置文件和依赖"
+priority = 85
+
+[[options]]
+name = ["-Qdtq"]
+description = "列出孤儿包"
+priority = 85
+
+[[options]]
+name = ["-Yc"]
+description = "清理不再需要的依赖"
+priority = 80
+
+[[options]]
+name = ["-Gp"]
+description = "打印 AUR 包的 PKGBUILD"
+priority = 70

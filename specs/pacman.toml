@@ -1,0 +1,361 @@
+# pacman v7.1.0 / libalpm v16.0.1 的中文描述 spec（本机 zh_CN 帮助）
+# 注意：-S/-Q 这类以 - 开头的操作 lig 无法当子命令，故全部扁平化成选项，
+#       操作专属选项的 description 用 "S：" / "S/Q：" 前缀标出适用操作。
+# 改完：lig specs check pacman / lig complete "pacman -S "
+
+name = "pacman"
+description = "Arch Linux 软件包管理器"
+
+args = { name = "软件包", isVariadic = true }
+
+# ── 操作 ────────────────────────────────────────────────────
+[[options]]
+name = ["-S", "--sync"]
+description = "安装或升级远程仓库中的软件包"
+
+[[options]]
+name = ["-Q", "--query"]
+description = "查询本地已安装的软件包"
+
+[[options]]
+name = ["-R", "--remove"]
+description = "卸载软件包"
+
+[[options]]
+name = ["-U", "--upgrade"]
+description = "从本地包文件安装或升级"
+
+[[options]]
+name = ["-F", "--files"]
+description = "按文件查找所属的软件包"
+
+[[options]]
+name = ["-T", "--deptest"]
+description = "检查依赖是否已满足"
+
+[[options]]
+name = ["-D", "--database"]
+description = "修改软件包的数据库属性"
+
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"
+
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+# ── 各操作的单个字母选项（-c/-d/-l/-p/-s/-u/-n/-k 在不同操作下含义不同，合并多条）──
+[[options]]
+name = ["-c", "--clean", "--changelog", "--cascade"]
+description = "S：清缓存（-cc 全清）；Q：更新日志；R：级联删除"
+isRepeatable = true
+
+[[options]]
+name = ["-d", "--nodeps", "--deps"]
+description = "S/R/U：跳过依赖检查（-dd 全跳过）；Q：只列依赖包"
+isRepeatable = true
+
+[[options]]
+name = ["-g", "--groups"]
+description = "S/Q：列出软件包组及其成员（-gg 全部）"
+isRepeatable = true
+
+[[options]]
+name = ["-i", "--info"]
+description = "S/Q：查看软件包信息（-ii 更详细）"
+isRepeatable = true
+
+[[options]]
+name = ["-l", "--list"]
+description = "S：列仓库中的包；Q/F：列出包内文件"
+
+[[options]]
+name = ["-p", "--print", "--file"]
+description = "S/R/U：只打印目标；Q：查询本地包文件"
+
+[[options]]
+name = ["-q", "--quiet"]
+description = "减少输出（-qq 更安静）；D：不显示成功消息"
+isRepeatable = true
+
+[[options]]
+name = ["-s", "--search", "--recursive"]
+description = "S/Q：按正则搜索；R：连带依赖删除（-ss）"
+isRepeatable = true
+
+[[options]]
+name = ["-u", "--sysupgrade", "--upgrades", "--unneeded"]
+description = "S：系统升级（-uu 可降级）；Q：可升级包；R：删无用包"
+
+[[options]]
+name = ["-n", "--nosave", "--native"]
+description = "Q：只列同步库中的包；R：连配置文件一起删"
+
+[[options]]
+name = ["-k", "--check"]
+description = "Q：检查包内文件（-kk 查属性）；D：校验数据库"
+isRepeatable = true
+
+# ── 仅某一操作有的选项 ──────────────────────────────────────
+[[options]]
+name = ["-e", "--explicit"]
+description = "Q：只列单独指定安装的包"
+
+[[options]]
+name = ["-m", "--foreign"]
+description = "Q：只列不在同步库中的包（AUR 等）"
+
+[[options]]
+name = ["-o", "--owns"]
+description = "Q：查哪个软件包拥有该文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-t", "--unrequired"]
+description = "Q：列出无人依赖的包（-tt 忽略可选）"
+isRepeatable = true
+
+[[options]]
+name = ["-w", "--downloadonly"]
+description = "下载但不安装或升级"
+
+[[options]]
+name = ["-y", "--refresh"]
+description = "下载新的软件包数据库（-yy 强制）"
+isRepeatable = true
+
+[[options]]
+name = ["-x", "--regex"]
+description = "F：把查询当作正则表达式"
+
+[[options]]
+name = ["--machinereadable"]
+description = "F：输出机器可读格式"
+
+# ── 安装/升级/卸载共用 ──────────────────────────────────────
+[[options]]
+name = ["--asdeps"]
+description = "S/U：装为依赖；D：标记为依赖"
+
+[[options]]
+name = ["--asexplicit"]
+description = "S/U：装为显式；D：标记为显式"
+
+[[options]]
+name = ["--assume-installed"]
+description = "假装已安装某包以满足依赖"
+args = { name = "软件包=版本" }
+isRepeatable = true
+
+[[options]]
+name = ["--dbonly"]
+description = "S/R/U：只改数据库条目，不动文件"
+
+[[options]]
+name = ["--ignore"]
+description = "S/U：升级时忽略此软件包"
+args = { name = "软件包" }
+isRepeatable = true
+
+[[options]]
+name = ["--ignoregroup"]
+description = "S/U：升级时忽略此软件包组"
+args = { name = "软件包组" }
+isRepeatable = true
+
+[[options]]
+name = ["--needed"]
+description = "S/U：已是最新的不重装"
+
+[[options]]
+name = ["--noprogressbar"]
+description = "S/R/U：下载时不显示进度条"
+
+[[options]]
+name = ["--noscriptlet"]
+description = "S/R/U：不执行安装小脚本"
+
+[[options]]
+name = ["--overwrite"]
+description = "S/U：覆盖冲突的文件（glob）"
+args = { name = "glob" }
+isRepeatable = true
+
+[[options]]
+name = ["--print-format"]
+description = "S/R/U：指定 --print 的输出格式"
+args = { name = "格式", suggestions = [
+  { name = "%n", description = "软件包名" },
+  { name = "%v", description = "软件包版本" },
+  { name = "%r", description = "所属软件库" },
+  { name = "%l", description = "位置：URL 或文件名" },
+  { name = "%f", description = "包文件名" },
+  { name = "%s", description = "安装后大小" },
+  { name = "%d", description = "软件包描述" },
+] }
+
+# ── 全局选项（所有操作通用）─────────────────────────────────
+[[options]]
+name = ["-b", "--dbpath"]
+description = "指定另外的数据库位置"
+args = { name = "路径", template = "folders" }
+
+[[options]]
+name = ["-r", "--root"]
+description = "指定另外的安装根目录"
+args = { name = "路径", template = "filepaths" }
+
+[[options]]
+name = ["-v", "--verbose"]
+description = "输出详细信息与配置路径"
+
+[[options]]
+name = ["--arch"]
+description = "指定另外的架构"
+args = { name = "架构", suggestions = [
+  { name = "x86_64", description = "64 位 x86（默认）" },
+  { name = "i686", description = "32 位 x86" },
+  { name = "aarch64", description = "64 位 ARM" },
+  { name = "armv7h", description = "32 位 ARM 硬浮点" },
+  { name = "any", description = "与架构无关" },
+] }
+
+[[options]]
+name = ["--cachedir"]
+description = "指定另外的软件包缓存目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--color"]
+description = "彩色化输出的时机"
+args = { name = "时机", suggestions = [
+  { name = "always", description = "总是彩色" },
+  { name = "auto", description = "仅输出到终端时彩色" },
+  { name = "never", description = "始终不彩色" },
+] }
+
+[[options]]
+name = ["--config"]
+description = "指定另外的配置文件"
+args = { name = "路径", template = "filepaths" }
+
+[[options]]
+name = ["--confirm"]
+description = "总是询问确认"
+
+[[options]]
+name = ["--debug"]
+description = "显示调试信息"
+
+[[options]]
+name = ["--disable-download-timeout"]
+description = "下载时使用宽松的超时"
+
+[[options]]
+name = ["--disable-sandbox"]
+description = "禁用下载进程的所有沙盒"
+
+[[options]]
+name = ["--disable-sandbox-filesystem"]
+description = "禁用沙盒的文件系统限制"
+
+[[options]]
+name = ["--disable-sandbox-syscalls"]
+description = "禁用沙盒的系统调用限制"
+
+[[options]]
+name = ["--gpgdir"]
+description = "指定 GnuPG 的另外主目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--hookdir"]
+description = "指定另外的钩子目录"
+args = { name = "目录", template = "folders" }
+
+[[options]]
+name = ["--logfile"]
+description = "指定另外的日志文件"
+args = { name = "路径", template = "filepaths" }
+
+[[options]]
+name = ["--noconfirm"]
+description = "不询问确认"
+
+[[options]]
+name = ["--sysroot"]
+description = "在已挂载的 guest 系统上操作（仅 root）"
+args = { name = "目录", template = "folders" }
+
+# ── 常用组合短参数（lig 只把组合里最后一个字母记为已用，这些条目
+#    用于在弹窗里一次看到并插入整组）───────────────────────────
+[[options]]
+name = ["-Syu"]
+description = "同步数据库并升级全部软件包"
+priority = 85
+
+[[options]]
+name = ["-Syyu"]
+description = "强制刷新数据库后升级全部"
+priority = 85
+
+[[options]]
+name = ["-Sy"]
+description = "只更新软件包数据库"
+priority = 80
+
+[[options]]
+name = ["-Ss"]
+description = "在仓库中按关键字搜索"
+priority = 80
+
+[[options]]
+name = ["-Si"]
+description = "查看软件包的详细信息"
+priority = 80
+
+[[options]]
+name = ["-Sc"]
+description = "清理缓存中的旧软件包"
+priority = 80
+
+[[options]]
+name = ["-Scc"]
+description = "清空整个软件包缓存"
+priority = 80
+
+[[options]]
+name = ["-Rns"]
+description = "删除包、配置文件和依赖"
+priority = 85
+
+[[options]]
+name = ["-Qdtq"]
+description = "列出无人依赖的孤儿包"
+priority = 85
+
+[[options]]
+name = ["-Qe"]
+description = "列出显式安装的软件包"
+priority = 75
+
+[[options]]
+name = ["-Qm"]
+description = "列出非官方仓库的软件包"
+priority = 75
+
+[[options]]
+name = ["-Qo"]
+description = "查某文件属于哪个软件包"
+priority = 75
+
+[[options]]
+name = ["-Ql"]
+description = "列出软件包包含的文件"
+priority = 75
+
+[[options]]
+name = ["-Fy"]
+description = "更新文件数据库"
+priority = 75

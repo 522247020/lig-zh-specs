@@ -1,0 +1,190 @@
+# iputils 20250605 的中文描述 spec
+# 改完：lig specs check ping / lig complete "ping -M "
+
+name = "ping"
+description = "测试到主机的网络连通性"
+
+args = { name = "目标", suggestions = ["127.0.0.1"] }
+
+# ── 发送与次数 ──────────────────────────────────────────────
+[[options]]
+name = ["-c"]
+description = "收到指定次数回复后停止"
+args = { name = "次数", suggestions = ["1", "3", "5", "10", "100"] }
+
+[[options]]
+name = ["-i"]
+description = "两次发送之间的间隔（秒）"
+args = { name = "秒", suggestions = ["0.2", "0.5", "1", "2"] }
+
+[[options]]
+name = ["-f"]
+description = "洪水模式，尽快发包（需 root）"
+
+[[options]]
+name = ["-l"]
+description = "发送前预载的包数"
+args = { name = "数量", suggestions = ["1", "10", "100"] }
+
+[[options]]
+name = ["-A"]
+description = "自适应 ping：按回复速度自动调整间隔"
+
+[[options]]
+name = ["-w"]
+description = "总等待时限（秒），超时退出"
+args = { name = "秒", suggestions = ["1", "5", "10", "30"] }
+
+[[options]]
+name = ["-W"]
+description = "等待单个回复的超时（秒）"
+args = { name = "秒", suggestions = ["1", "2", "5"] }
+
+# ── 数据与路由 ──────────────────────────────────────────────
+[[options]]
+name = ["-s"]
+description = "每个包的数据字节数"
+args = { name = "字节", suggestions = ["56", "64", "1000", "1472", "65507"] }
+
+[[options]]
+name = ["-p"]
+description = "填充字节的内容（十六进制）"
+args = { name = "模式" }
+
+[[options]]
+name = ["-t"]
+description = "设置 TTL（跳数上限）"
+args = { name = "TTL", suggestions = ["1", "64", "128", "255"] }
+
+[[options]]
+name = ["-Q"]
+description = "设置 QoS 的 TOS/tclass 位"
+args = { name = "值", suggestions = ["0", "16", "184"] }
+
+[[options]]
+name = ["-M"]
+description = "路径 MTU 发现方式"
+args = { name = "方式", suggestions = [
+  { name = "do", description = "自己做 PMTU 发现" },
+  { name = "dont", description = "不做 PMTU 发现" },
+  { name = "want", description = "希望做 PMTU 发现" },
+  { name = "probe", description = "用探测方式判断 MTU" },
+] }
+
+[[options]]
+name = ["-m"]
+description = "给发出的包打标记（mark）"
+args = { name = "标记" }
+
+[[options]]
+name = ["-S"]
+description = "设置 socket 发送缓冲区大小"
+args = { name = "字节" }
+
+[[options]]
+name = ["-B"]
+description = "固定源地址，不在回复时改变源地址"
+
+[[options]]
+name = ["-I"]
+description = "指定出口网卡或源地址"
+args = { name = "网卡/地址", suggestions = ["eth0", "wlan0", "lo", "127.0.0.1"] }
+
+[[options]]
+name = ["-L"]
+description = "禁止组播包的本地回环"
+
+[[options]]
+name = ["-C"]
+description = "创建 socket 时调用 connect()"
+
+[[options]]
+name = ["-e"]
+description = "指定 ping 会话的标识符"
+args = { name = "标识符" }
+
+# ── 输出 ────────────────────────────────────────────────────
+[[options]]
+name = ["-n"]
+description = "不做反向 DNS 解析，直接显示 IP"
+
+[[options]]
+name = ["-H"]
+description = "强制反向 DNS 解析，覆盖 -n"
+
+[[options]]
+name = ["-D"]
+description = "每行输出加上时间戳"
+
+[[options]]
+name = ["-O"]
+description = "打印尚未收到回复的请求"
+
+[[options]]
+name = ["-q"]
+description = "安静模式，只在开始和结束时输出"
+
+[[options]]
+name = ["-a"]
+description = "收到回复时发出响声"
+
+[[options]]
+name = ["-v"]
+description = "详细输出"
+
+[[options]]
+name = ["-3"]
+description = "RTT 显示为精确值，不做取整"
+
+[[options]]
+name = ["-U"]
+description = "打印用户态到用户态的延迟"
+
+[[options]]
+name = ["-d"]
+description = "打开 SO_DEBUG 调试选项"
+
+# ── IPv4 / IPv6 ─────────────────────────────────────────────
+[[options]]
+name = ["-4"]
+description = "强制使用 IPv4"
+
+[[options]]
+name = ["-6"]
+description = "强制使用 IPv6"
+
+[[options]]
+name = ["-b"]
+description = "允许 ping 广播地址"
+
+[[options]]
+name = ["-R"]
+description = "记录路由（IPv4）"
+
+[[options]]
+name = ["-T"]
+description = "IPv4 时间戳选项"
+args = { name = "类型", suggestions = [
+  { name = "tsonly", description = "只记录时间戳" },
+  { name = "tsandaddr", description = "时间戳加地址" },
+  { name = "tsprespec", description = "按预置地址列表记录" },
+] }
+
+[[options]]
+name = ["-F"]
+description = "IPv6 流标签（flow label）"
+args = { name = "流标签" }
+
+[[options]]
+name = ["-N"]
+description = "IPv6 节点信息查询（先试 help）"
+args = { name = "选项", suggestions = ["help"] }
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["-h"]
+description = "显示帮助"
+
+[[options]]
+name = ["-V"]
+description = "显示版本"

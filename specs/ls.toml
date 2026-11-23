@@ -1,0 +1,258 @@
+# GNU coreutils ls 的中文描述 spec
+# 这个文件整体替换 lig 内置的 ls spec；改完用 `lig specs check ls` 验证，
+# 用 `lig complete "ls --col"` 或 `lig complete "ls --color="` 预览。
+
+name = "ls"
+description = "列出目录内容"
+
+# 位置参数：可跟任意多个文件/目录
+args = { name = "文件", isVariadic = true, template = "filepaths" }
+
+# ── 显示内容 ────────────────────────────────────────────────
+[[options]]
+name = ["-a", "--all"]
+description = "显示全部文件，包括 . 开头的隐藏文件"
+
+[[options]]
+name = ["-A", "--almost-all"]
+description = "显示隐藏文件，但不包括 . 和 .."
+
+[[options]]
+name = ["-d", "--directory"]
+description = "把目录当作普通文件列出，不展开内容"
+
+[[options]]
+name = ["-i", "--inode"]
+description = "显示每个文件的 inode 号"
+
+[[options]]
+name = ["-s", "--size"]
+description = "显示每个文件占用的块数"
+
+[[options]]
+name = ["-B", "--ignore-backups"]
+description = "不列出以 ~ 结尾的备份文件"
+
+[[options]]
+name = ["-I", "--ignore"]
+description = "不列出匹配该模式的文件"
+args = { name = "模式" }
+
+[[options]]
+name = "--hide"
+description = "不列出匹配该 shell 通配模式的文件"
+args = { name = "模式" }
+
+[[options]]
+name = ["-Z", "--context"]
+description = "显示 SELinux 安全上下文"
+
+[[options]]
+name = "--author"
+description = "与 -l 同用，显示文件的作者"
+
+# ── 输出格式 ────────────────────────────────────────────────
+[[options]]
+name = ["-l"]
+description = "长格式：权限、链接数、所有者、大小、时间"
+
+[[options]]
+name = ["-o"]
+description = "长格式，但不显示所属组"
+
+[[options]]
+name = ["-g"]
+description = "长格式，但不显示所有者"
+
+[[options]]
+name = ["-n", "--numeric-uid-gid"]
+description = "长格式用数字显示 UID 和 GID"
+
+[[options]]
+name = ["-G", "--no-group"]
+description = "长格式中省略所属组"
+
+[[options]]
+name = ["-C"]
+description = "多列纵向排列输出（输出到终端时的默认）"
+
+[[options]]
+name = ["-x"]
+description = "多列输出，但横向填充"
+
+[[options]]
+name = ["-m"]
+description = "用逗号分隔的横向列表"
+
+[[options]]
+name = ["-1"]
+description = "每行只显示一个文件名"
+
+[[options]]
+name = ["-F", "--classify"]
+description = "按类型追加标记：目录 /、可执行 *、链接 @"
+
+[[options]]
+name = "--file-type"
+description = "同 -F，但不对可执行文件加 *"
+
+[[options]]
+name = ["-p"]
+description = "给目录名追加 /"
+
+[[options]]
+name = "--indicator-style"
+description = "选择文件名类型标记的风格"
+args = { name = "风格", suggestions = ["none", "slash", "file-type", "classify"] }
+requiresSeparator = true
+
+[[options]]
+name = "--format"
+description = "选择整体输出格式"
+args = { name = "格式", suggestions = ["long", "verbose", "single-column", "vertical", "across", "commas", "horizontal", "literal"] }
+requiresSeparator = true
+
+[[options]]
+name = "--color"
+description = "彩色输出：何时着色"
+args = { name = "时机", suggestions = [
+  { name = "always", description = "始终输出颜色转义序列" },
+  { name = "auto", description = "仅在输出到终端时着色" },
+  { name = "never", description = "完全关闭颜色" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["-h", "--human-readable"]
+description = "与 -l 同用，用 K/M/G 显示易读大小"
+
+[[options]]
+name = "--si"
+description = "同 -h，但按 1000 进制（kB/MB/GB）"
+
+[[options]]
+name = ["-k", "--kibibytes"]
+description = "以 1 KiB 为单位显示 -s 的块数"
+
+[[options]]
+name = "--block-size"
+description = "设定 -s 和 -l 使用的块大小"
+args = { name = "大小", suggestions = ["1K", "1M", "1G", "human-readable"] }
+requiresSeparator = true
+
+[[options]]
+name = ["-w", "--width"]
+description = "设定输出宽度（列数）"
+args = { name = "列数" }
+
+[[options]]
+name = ["-T", "--tabsize"]
+description = "设定制表符的宽度"
+args = { name = "列数" }
+
+[[options]]
+name = ["-D", "--dired"]
+description = "生成适合 Emacs dired 的输出"
+
+[[options]]
+name = "--zero"
+description = "以 NUL 而不是换行分隔条目"
+
+# ── 排序 ────────────────────────────────────────────────────
+[[options]]
+name = ["-t"]
+description = "按修改时间排序，最新的在前"
+
+[[options]]
+name = ["-S"]
+description = "按文件大小排序，大的在前"
+
+[[options]]
+name = ["-X"]
+description = "按扩展名排序"
+
+[[options]]
+name = ["-v"]
+description = "按版本号（自然数字顺序）排序"
+
+[[options]]
+name = ["-r", "--reverse"]
+description = "反转排序结果"
+
+[[options]]
+name = ["-f"]
+description = "不排序，并按目录原始顺序输出"
+
+[[options]]
+name = ["-U"]
+description = "不排序，按目录中的原始顺序"
+
+[[options]]
+name = "--sort"
+description = "选择排序依据"
+args = { name = "方式", suggestions = ["none", "time", "size", "extension", "version", "width"] }
+requiresSeparator = true
+
+[[options]]
+name = ["-c"]
+description = "按状态变更时间（ctime）排序或显示"
+
+[[options]]
+name = ["-u"]
+description = "按访问时间（atime）排序或显示"
+
+[[options]]
+name = "--time"
+description = "指定排序和 -l 显示所用的时间字段"
+args = { name = "字段", suggestions = ["atime", "access", "use", "ctime", "status"] }
+requiresSeparator = true
+
+[[options]]
+name = "--time-style"
+description = "设置 -l 的时间显示格式"
+args = { name = "样式", suggestions = ["full-iso", "long-iso", "iso", "+%Y-%m-%d %H:%M"] }
+requiresSeparator = true
+
+# ── 递归与链接 ──────────────────────────────────────────────
+[[options]]
+name = ["-R", "--recursive"]
+description = "递归列出所有子目录"
+
+[[options]]
+name = ["-L", "--dereference"]
+description = "跟随符号链接，显示目标文件的信息"
+
+[[options]]
+name = ["-H", "--dereference-command-line"]
+description = "只跟随命令行上给出的符号链接"
+
+[[options]]
+name = "--dereference-command-line-symlink-to-dir"
+description = "跟随命令行上指向目录的符号链接"
+
+# ── 转义与引用 ──────────────────────────────────────────────
+[[options]]
+name = ["-b", "--escape"]
+description = "用 C 风格转义序列显示不可打印字符"
+
+[[options]]
+name = ["-q", "--hide-control-chars"]
+description = "把控制字符显示成 ?"
+
+[[options]]
+name = "--show-control-chars"
+description = "原样显示控制字符（输出到终端时的默认）"
+
+[[options]]
+name = ["-N", "--literal"]
+description = "原样输出文件名，不转义特殊字符"
+
+[[options]]
+name = ["-Q", "--quote-name"]
+description = "用双引号把文件名括起来"
+
+[[options]]
+name = "--quoting-style"
+description = "选择文件名的引用风格"
+args = { name = "风格", suggestions = ["literal", "shell", "shell-always", "shell-escape", "shell-escape-always", "c", "escape"] }
+requiresSeparator = true

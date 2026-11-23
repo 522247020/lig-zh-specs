@@ -1,0 +1,421 @@
+# GNU findutils 4.11 的中文描述 spec
+# 改完：lig specs check find / lig complete "find . -type "
+
+name = "find"
+description = "递归查找文件并对其执行操作"
+
+args = { name = "路径", isVariadic = true, template = "filepaths" }
+
+# ── 全局选项 ────────────────────────────────────────────────
+[[options]]
+name = ["-H"]
+description = "只跟随命令行上给出的符号链接"
+
+[[options]]
+name = ["-L"]
+description = "跟随所有符号链接"
+
+[[options]]
+name = ["-P"]
+description = "从不跟随符号链接（默认）"
+
+[[options]]
+name = ["-D"]
+description = "输出调试信息"
+args = { name = "调试项", suggestions = ["exec", "opt", "rates", "search", "stat", "time", "tree", "all"] }
+
+[[options]]
+name = ["-maxdepth"]
+description = "最多向下搜索的层数"
+args = { name = "层数", suggestions = ["1", "2", "3", "4"] }
+
+[[options]]
+name = ["-mindepth"]
+description = "至少向下到第几层才开始匹配（含该层）"
+args = { name = "层数", suggestions = ["1", "2", "3"] }
+
+[[options]]
+name = ["-depth"]
+description = "先处理目录内容，再处理目录本身"
+
+[[options]]
+name = ["-xdev"]
+description = "不跨越文件系统边界"
+
+[[options]]
+name = ["-mount"]
+description = "同 -xdev，不跨越挂载点"
+
+[[options]]
+name = ["-noleaf"]
+description = "关闭目录链接数的优化"
+
+[[options]]
+name = ["-ignore_readdir_race"]
+description = "扫描时文件消失也不报错"
+
+[[options]]
+name = ["-noignore_readdir_race"]
+description = "恢复“文件消失即报错”"
+
+[[options]]
+name = ["-daystart"]
+description = "-atime/-mtime 从今天 0 点开始计算"
+
+[[options]]
+name = ["-follow"]
+description = "同 -L，已废弃"
+
+[[options]]
+name = ["-warn"]
+description = "对不规范的用法给出警告"
+
+[[options]]
+name = ["-nowarn"]
+description = "关闭 -warn 的警告"
+
+[[options]]
+name = ["-files0-from"]
+description = "从文件读取 NUL 分隔的起始路径"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-regextype"]
+description = "指定 -regex/-iregex 使用的正则方言"
+args = { name = "方言", suggestions = [
+  { name = "findutils-default", description = "find 默认的 emacs 风格" },
+  { name = "emacs", description = "Emacs 正则" },
+  { name = "posix-basic", description = "POSIX 基本正则（BRE）" },
+  { name = "posix-extended", description = "POSIX 扩展正则（ERE）" },
+  { name = "grep", description = "grep 风格" },
+  { name = "egrep", description = "egrep 风格" },
+  { name = "awk", description = "awk 风格" },
+  { name = "sed", description = "sed 风格" },
+] }
+
+# ── 测试（按名字） ──────────────────────────────────────────
+[[options]]
+name = ["-name"]
+description = "按文件名匹配（支持通配符），只匹配基名"
+args = { name = "模式" }
+
+[[options]]
+name = ["-iname"]
+description = "同 -name，但忽略大小写"
+args = { name = "模式" }
+
+[[options]]
+name = ["-path", "-wholename"]
+description = "按完整路径匹配（支持通配符）"
+args = { name = "模式" }
+
+[[options]]
+name = ["-ipath", "-iwholename"]
+description = "同 -path，但忽略大小写"
+args = { name = "模式" }
+
+[[options]]
+name = ["-lname"]
+description = "符号链接的目标匹配该模式"
+args = { name = "模式" }
+
+[[options]]
+name = ["-ilname"]
+description = "同 -lname，但忽略大小写"
+args = { name = "模式" }
+
+[[options]]
+name = ["-regex"]
+description = "整个路径匹配该正则"
+args = { name = "正则" }
+
+[[options]]
+name = ["-iregex"]
+description = "同 -regex，但忽略大小写"
+args = { name = "正则" }
+
+# ── 测试（按类型/大小/时间） ────────────────────────────────
+[[options]]
+name = ["-type"]
+description = "按文件类型匹配"
+args = { name = "类型", suggestions = [
+  { name = "f", description = "普通文件" },
+  { name = "d", description = "目录" },
+  { name = "l", description = "符号链接" },
+  { name = "b", description = "块设备" },
+  { name = "c", description = "字符设备" },
+  { name = "p", description = "命名管道 FIFO" },
+  { name = "s", description = "套接字 socket" },
+] }
+
+[[options]]
+name = ["-xtype"]
+description = "符号链接所指向目标的类型"
+args = { name = "类型", suggestions = ["f", "d", "l", "b", "c", "p", "s"] }
+
+[[options]]
+name = ["-size"]
+description = "按文件大小匹配，N 为单位数，可写 +N/-N"
+args = { name = "大小", suggestions = [
+  { name = "+1M", description = "大于 1 MB" },
+  { name = "-1k", description = "小于 1 KB" },
+  { name = "100c", description = "正好 100 字节" },
+  { name = "0", description = "空文件" },
+] }
+
+[[options]]
+name = ["-empty"]
+description = "空文件或空目录"
+
+[[options]]
+name = ["-mtime"]
+description = "按修改时间（天）匹配"
+args = { name = "天数", suggestions = [
+  { name = "-1", description = "24 小时内修改过" },
+  { name = "0", description = "今天修改过" },
+  { name = "+7", description = "超过 7 天没修改" },
+] }
+
+[[options]]
+name = ["-atime"]
+description = "按访问时间（天）匹配"
+args = { name = "天数", suggestions = ["-1", "0", "+7"] }
+
+[[options]]
+name = ["-ctime"]
+description = "按状态变更时间（天）匹配"
+args = { name = "天数", suggestions = ["-1", "0", "+7"] }
+
+[[options]]
+name = ["-mmin"]
+description = "按修改时间（分钟）匹配"
+args = { name = "分钟数", suggestions = ["-60", "+60", "0"] }
+
+[[options]]
+name = ["-amin"]
+description = "按访问时间（分钟）匹配"
+args = { name = "分钟数", suggestions = ["-60", "+60"] }
+
+[[options]]
+name = ["-cmin"]
+description = "按状态变更时间（分钟）匹配"
+args = { name = "分钟数", suggestions = ["-60", "+60"] }
+
+[[options]]
+name = ["-newer"]
+description = "修改时间比该文件更新"
+args = { name = "参照文件", template = "filepaths" }
+
+[[options]]
+name = ["-newerXY"]
+description = "按 X/Y 组合比较时间，如 -newermt、-newerat"
+args = { name = "参照", template = "filepaths" }
+
+[[options]]
+name = ["-anewer"]
+description = "访问时间比该文件更新"
+args = { name = "参照文件", template = "filepaths" }
+
+[[options]]
+name = ["-cnewer"]
+description = "状态变更时间比该文件更新"
+args = { name = "参照文件", template = "filepaths" }
+
+[[options]]
+name = ["-used"]
+description = "上次访问发生在修改后第 N 天"
+args = { name = "天数" }
+
+# ── 测试（按属主/权限/其它） ────────────────────────────────
+[[options]]
+name = ["-user"]
+description = "属于该用户"
+args = { name = "用户" }
+
+[[options]]
+name = ["-group"]
+description = "属于该组"
+args = { name = "组" }
+
+[[options]]
+name = ["-uid"]
+description = "UID 等于该值"
+args = { name = "UID" }
+
+[[options]]
+name = ["-gid"]
+description = "GID 等于该值"
+args = { name = "GID" }
+
+[[options]]
+name = ["-nouser"]
+description = "属主在 /etc/passwd 中不存在"
+
+[[options]]
+name = ["-nogroup"]
+description = "属组在 /etc/group 中不存在"
+
+[[options]]
+name = ["-perm"]
+description = "按权限模式匹配，如 644、-u+w、/u+x"
+args = { name = "权限", suggestions = [
+  { name = "644", description = "正好是 644" },
+  { name = "-644", description = "包含 644 全部权限位" },
+  { name = "/111", description = "任一执行位被设置" },
+  { name = "-u+w", description = "属主可写（符号写法）" },
+] }
+
+[[options]]
+name = ["-links"]
+description = "硬链接数为 N（可写 +N/-N）"
+args = { name = "数量", suggestions = ["+1", "0", "1"] }
+
+[[options]]
+name = ["-inum"]
+description = "inode 号等于该值"
+args = { name = "inode" }
+
+[[options]]
+name = ["-readable"]
+description = "当前用户可读"
+
+[[options]]
+name = ["-writable"]
+description = "当前用户可写"
+
+[[options]]
+name = ["-executable"]
+description = "当前用户可执行"
+
+[[options]]
+name = ["-fstype"]
+description = "文件系统类型，如 ext4、tmpfs"
+args = { name = "类型", suggestions = ["ext4", "btrfs", "xfs", "tmpfs", "nfs"] }
+
+[[options]]
+name = ["-context"]
+description = "SELinux 安全上下文匹配"
+args = { name = "上下文" }
+
+[[options]]
+name = ["-true"]
+description = "恒为真"
+
+[[options]]
+name = ["-false"]
+description = "恒为假"
+
+# ── 动作 ────────────────────────────────────────────────────
+[[options]]
+name = ["-print"]
+description = "打印路径（默认动作）"
+
+[[options]]
+name = ["-print0"]
+description = "打印路径并以 NUL 分隔（配合 xargs -0）"
+
+[[options]]
+name = ["-printf"]
+description = "按格式打印，如 %p、%f、%s"
+args = { name = "格式", suggestions = [
+  { name = '%p\n', description = "路径 + 换行" },
+  { name = '%f\n', description = "文件名 + 换行" },
+  { name = '%s %p\n', description = "大小 + 路径" },
+  { name = '%TY-%Tm-%Td %p\n', description = "修改日期 + 路径" },
+] }
+
+[[options]]
+name = ["-fprintf"]
+description = "按格式写入文件"
+args = [{ name = "文件", template = "filepaths" }, { name = "格式" }]
+
+[[options]]
+name = ["-fprint"]
+description = "把路径写入文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-fprint0"]
+description = "以 NUL 分隔写入文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-ls"]
+description = "以 ls -dils 格式打印"
+
+[[options]]
+name = ["-fls"]
+description = "以 ls -dils 格式写入文件"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-delete"]
+description = "删除匹配的文件和空目录（隐含 -depth）"
+
+[[options]]
+name = ["-prune"]
+description = "不进入该目录（需配合 -o）"
+
+[[options]]
+name = ["-quit"]
+description = "匹配到第一个就立即退出"
+
+[[options]]
+name = ["-exec"]
+description = "对每个结果执行命令，以 \\; 结束（+ 可批量）"
+args = { name = "命令", isCommand = true }
+
+[[options]]
+name = ["-execdir"]
+description = "在文件所在目录执行命令"
+args = { name = "命令", isCommand = true }
+
+[[options]]
+name = ["-ok"]
+description = "同 -exec，但每次执行前询问"
+args = { name = "命令", isCommand = true }
+
+[[options]]
+name = ["-okdir"]
+description = "同 -execdir，但每次执行前询问"
+args = { name = "命令", isCommand = true }
+
+# ── 逻辑操作符（当快捷项，方便补出来）───────────────────────
+[[additionalSuggestions]]
+name = "!"
+description = "取反（-not 也行）"
+type = "shortcut"
+
+[[additionalSuggestions]]
+name = "("
+description = "表达式分组开始"
+type = "shortcut"
+
+[[additionalSuggestions]]
+name = ")"
+description = "表达式分组结束"
+type = "shortcut"
+
+[[additionalSuggestions]]
+name = "-a"
+description = "与：前后条件都要满足（默认）"
+type = "shortcut"
+
+[[additionalSuggestions]]
+name = "-o"
+description = "或：任一条件满足"
+type = "shortcut"
+
+[[additionalSuggestions]]
+name = ","
+description = "两个动作都执行（逗号连接）"
+type = "shortcut"
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["--version"]
+description = "显示版本"

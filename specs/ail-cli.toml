@@ -1,0 +1,34 @@
+# AppImageLauncher 3.0.0-beta 的 ail-cli 中文描述 spec
+# 改完：lig specs check ail-cli / lig complete "ail-cli "
+
+name = "ail-cli"
+description = "AppImageLauncher 命令行：集成或取消集成 AppImage"
+
+# ── 子命令 ──────────────────────────────────────────────────
+[[subcommands]]
+name = "integrate"
+description = "把传入的 AppImage 集成到系统（建桌面项）"
+args = { name = "AppImage 文件", isVariadic = true, template = "filepaths" }
+
+[[subcommands]]
+name = "unintegrate"
+description = "取消集成，并移除桌面项和图标"
+args = { name = "AppImage 文件", isVariadic = true, template = "filepaths" }
+
+[[subcommands]]
+name = "would-integrate"
+description = "判断是否会被集成，用退出码表示结果"
+args = { name = "AppImage 文件", isVariadic = true, template = "filepaths" }
+
+# ── 全局选项 ────────────────────────────────────────────────
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["--help-all"]
+description = "显示帮助，包括 Qt 相关选项"
+
+[[options]]
+name = ["-v", "--version"]
+description = "显示版本"

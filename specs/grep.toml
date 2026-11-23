@@ -1,0 +1,253 @@
+# GNU grep 3.12 的中文描述 spec
+# 改完：lig specs check grep / lig complete "grep -C "
+
+name = "grep"
+description = "在文件中搜索匹配的行"
+
+# 第一个位置参数是模式，之后是文件
+args = [
+  { name = "模式" },
+  { name = "文件", isVariadic = true, template = "filepaths" },
+]
+
+# ── 模式的解释方式 ──────────────────────────────────────────
+[[options]]
+name = ["-E", "--extended-regexp"]
+description = "把模式当作扩展正则（ERE）"
+
+[[options]]
+name = ["-F", "--fixed-strings"]
+description = "把模式当作固定字符串"
+
+[[options]]
+name = ["-G", "--basic-regexp"]
+description = "把模式当作基本正则（BRE，默认）"
+
+[[options]]
+name = ["-P", "--perl-regexp"]
+description = "把模式当作 Perl 兼容正则（PCRE）"
+
+[[options]]
+name = ["-e", "--regexp"]
+description = "指定一个模式，可重复使用来给多个模式"
+args = { name = "模式" }
+isRepeatable = true
+
+[[options]]
+name = ["-f", "--file"]
+description = "从文件中逐行读取模式"
+args = { name = "模式文件", template = "filepaths" }
+isRepeatable = true
+
+[[options]]
+name = ["-i", "--ignore-case"]
+description = "忽略大小写"
+
+[[options]]
+name = ["--no-ignore-case"]
+description = "区分大小写（默认）"
+
+[[options]]
+name = ["-w", "--word-regexp"]
+description = "只匹配完整的单词"
+
+[[options]]
+name = ["-x", "--line-regexp"]
+description = "只匹配整行"
+
+[[options]]
+name = ["-z", "--null-data"]
+description = "行以 NUL 结尾，而不是换行"
+
+# ── 输出什么 ────────────────────────────────────────────────
+[[options]]
+name = ["-c", "--count"]
+description = "只输出每个文件的匹配行数"
+
+[[options]]
+name = ["--color", "--colour"]
+description = "高亮匹配到的文本"
+args = { name = "时机", isOptional = true, suggestions = [
+  { name = "always", description = "始终着色" },
+  { name = "auto", description = "输出到终端时才着色" },
+  { name = "never", description = "关闭颜色" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["-L", "--files-without-match"]
+description = "只列出没有匹配的文件名"
+
+[[options]]
+name = ["-l", "--files-with-matches"]
+description = "只列出有匹配的文件名"
+
+[[options]]
+name = ["-m", "--max-count"]
+description = "匹配到 N 行后停止读取"
+args = { name = "行数", suggestions = ["1", "10", "100"] }
+
+[[options]]
+name = ["-o", "--only-matching"]
+description = "只输出匹配到的部分，而不是整行"
+
+[[options]]
+name = ["-q", "--quiet", "--silent"]
+description = "不输出任何内容，只看退出码"
+
+[[options]]
+name = ["-s", "--no-messages"]
+description = "不显示文件不存在等错误信息"
+
+[[options]]
+name = ["-v", "--invert-match"]
+description = "输出不匹配的行"
+
+[[options]]
+name = ["-b", "--byte-offset"]
+description = "同时输出匹配行的字节偏移"
+
+[[options]]
+name = ["-n", "--line-number"]
+description = "同时输出行号"
+
+[[options]]
+name = ["--line-buffered"]
+description = "每输出一行就刷新缓冲区"
+
+[[options]]
+name = ["-H", "--with-filename"]
+description = "总是输出文件名前缀"
+
+[[options]]
+name = ["-h", "--no-filename"]
+description = "不输出文件名前缀"
+
+[[options]]
+name = ["--label"]
+description = "标准输入内容显示的文件名前缀"
+args = { name = "标签" }
+
+[[options]]
+name = ["-T", "--initial-tab"]
+description = "用制表符对齐输出，便于阅读"
+
+[[options]]
+name = ["-Z", "--null"]
+description = "文件名后输出 NUL，便于 xargs -0"
+
+# ── 上下文行 ────────────────────────────────────────────────
+[[options]]
+name = ["-B", "--before-context"]
+description = "额外输出匹配行前面的 N 行"
+args = { name = "行数", suggestions = [
+  { name = "1", description = "前面 1 行" },
+  { name = "2", description = "前面 2 行" },
+  { name = "3", description = "前面 3 行" },
+  { name = "5", description = "前面 5 行" },
+] }
+
+[[options]]
+name = ["-A", "--after-context"]
+description = "额外输出匹配行后面的 N 行"
+args = { name = "行数", suggestions = [
+  { name = "1", description = "后面 1 行" },
+  { name = "2", description = "后面 2 行" },
+  { name = "3", description = "后面 3 行" },
+  { name = "5", description = "后面 5 行" },
+] }
+
+[[options]]
+name = ["-C", "--context"]
+description = "同时输出前后各 N 行（也可直接写 -N）"
+args = { name = "行数", suggestions = [
+  { name = "1", description = "前后各 1 行" },
+  { name = "2", description = "前后各 2 行" },
+  { name = "3", description = "前后各 3 行" },
+  { name = "5", description = "前后各 5 行" },
+] }
+
+[[options]]
+name = ["--group-separator"]
+description = "上下文块之间的分隔字符串"
+args = { name = "分隔符" }
+
+[[options]]
+name = ["--no-group-separator"]
+description = "上下文块之间不输出分隔线"
+
+# ── 哪些文件/目录 ──────────────────────────────────────────
+[[options]]
+name = ["-a", "--text"]
+description = "把二进制文件当文本处理"
+
+[[options]]
+name = ["-I"]
+description = "跳过二进制文件（等价 --binary-files=without-match）"
+
+[[options]]
+name = ["--binary-files"]
+description = "如何对待二进制文件"
+args = { name = "类型", suggestions = [
+  { name = "binary", description = "提示“Binary file matches”" },
+  { name = "text", description = "按文本处理" },
+  { name = "without-match", description = "视为不匹配并跳过" },
+] }
+
+[[options]]
+name = ["-d", "--directories"]
+description = "如何处理目录"
+args = { name = "动作", suggestions = [
+  { name = "read", description = "像普通文件一样读取" },
+  { name = "recurse", description = "递归搜索目录" },
+  { name = "skip", description = "跳过目录" },
+] }
+
+[[options]]
+name = ["-D", "--devices"]
+description = "如何处理设备、FIFO 和套接字"
+args = { name = "动作", suggestions = [
+  { name = "read", description = "读取内容" },
+  { name = "skip", description = "跳过" },
+] }
+
+[[options]]
+name = ["-r", "--recursive"]
+description = "递归搜索目录"
+
+[[options]]
+name = ["-R", "--dereference-recursive"]
+description = "递归搜索目录，并跟随所有符号链接"
+
+[[options]]
+name = ["--include"]
+description = "只搜索文件名匹配该通配模式的文件"
+args = { name = "模式", suggestions = ["*.rs", "*.py", "*.md", "*.toml"] }
+
+[[options]]
+name = ["--exclude"]
+description = "跳过文件名匹配该模式的文件"
+args = { name = "模式", suggestions = ["*.min.js", "*.lock", "target/*"] }
+
+[[options]]
+name = ["--exclude-from"]
+description = "从文件中读取要跳过的模式"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["--exclude-dir"]
+description = "跳过匹配该模式的目录"
+args = { name = "模式", suggestions = [".git", "node_modules", "target", ".venv"] }
+
+[[options]]
+name = ["-U", "--binary"]
+description = "MSDOS/Windows 下不清除行尾 CR"
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"
+
+[[options]]
+name = ["--help"]
+description = "显示帮助"

@@ -1,0 +1,2931 @@
+{
+  "name": "tmux",
+  "description": "终端复用器",
+  "options": [
+    {
+      "name": "-L",
+      "description": "socket 名称",
+      "args": {
+        "name": "name"
+      }
+    },
+    {
+      "name": "-S",
+      "description": "socket 路径",
+      "args": {
+        "name": "path",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "-f",
+      "description": "配置文件",
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": "-V",
+      "description": "显示版本"
+    }
+  ],
+  "subcommands": [
+    {
+      "name": [
+        "new-session",
+        "new"
+      ],
+      "description": "创建新会话",
+      "options": [
+        {
+          "name": "-s",
+          "description": "会话名称",
+          "args": {
+            "name": "name"
+          }
+        },
+        {
+          "name": "-d",
+          "description": "分离模式运行"
+        },
+        {
+          "name": "-n",
+          "description": "窗口名称",
+          "args": {
+            "name": "name"
+          }
+        },
+        {
+          "name": "-c",
+          "description": "起始目录",
+          "args": {
+            "name": "dir",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-A",
+          "description": "会话存在时接入"
+        },
+        {
+          "name": "-D",
+          "description": "设置 -A 时等同 -d"
+        },
+        {
+          "name": "-E",
+          "description": "不使用 update-environment 选项"
+        },
+        {
+          "name": "-P",
+          "description": "显示新会话的信息"
+        },
+        {
+          "name": "-X",
+          "description": "设置 -A 时等同 -x"
+        },
+        {
+          "name": "-e",
+          "description": "设置环境变量",
+          "args": {
+            "name": "environment"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "设置客户端标志",
+          "args": {
+            "name": "flags",
+            "suggestions": [
+              "active-pane",
+              "ignore-size",
+              "no-output",
+              "pause-after",
+              "read-only",
+              "wait-exit"
+            ]
+          }
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "组名称",
+          "args": {
+            "name": "group-name"
+          }
+        },
+        {
+          "name": "-x",
+          "description": "会话宽度",
+          "args": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "-y",
+          "description": "会话高度",
+          "args": {
+            "name": "height"
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command"
+      }
+    },
+    {
+      "name": [
+        "attach-session",
+        "attach",
+        "a"
+      ],
+      "description": "接入会话",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标会话",
+          "args": {
+            "name": "session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-d",
+          "description": "分离其它客户端"
+        },
+        {
+          "name": "-x",
+          "description": "向父进程发送 SIGHUP 并分离客户端"
+        },
+        {
+          "name": "-f",
+          "description": "设置客户端标志",
+          "args": {
+            "name": "flags",
+            "suggestions": [
+              "active-pane",
+              "ignore-size",
+              "no-output",
+              "pause-after",
+              "read-only",
+              "wait-exit"
+            ]
+          }
+        },
+        {
+          "name": "-c",
+          "description": "设置会话的工作目录",
+          "args": {
+            "name": "working-directory",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-E",
+          "description": "不使用 update-environment 选项"
+        }
+      ]
+    },
+    {
+      "name": [
+        "list-sessions",
+        "ls"
+      ],
+      "description": "列出会话",
+      "options": [
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "筛选会话",
+          "args": {
+            "name": "filter"
+          }
+        }
+      ]
+    },
+    {
+      "name": "kill-session",
+      "description": "终止会话",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标会话",
+          "args": {
+            "name": "session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-a",
+          "description": "终止其它所有会话"
+        },
+        {
+          "name": "-C",
+          "description": "清除关联窗口的告警（响铃/活动/静默）"
+        }
+      ]
+    },
+    {
+      "name": "kill-server",
+      "description": "终止服务端及所有会话"
+    },
+    {
+      "name": [
+        "switch-client",
+        "switch"
+      ],
+      "description": "将客户端切换到会话",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标会话",
+          "args": {
+            "name": "session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-E",
+          "description": "不使用 update-environment 选项"
+        },
+        {
+          "name": "-l",
+          "description": "将客户端切到上次使用的会话"
+        },
+        {
+          "name": "-n",
+          "description": "将客户端切到下一会话"
+        },
+        {
+          "name": "-p",
+          "description": "将客户端切到上一会话"
+        },
+        {
+          "name": "-r",
+          "description": "切换客户端的只读与 ignore-size 标志"
+        },
+        {
+          "name": "-Z",
+          "description": "窗口已缩放时保持缩放"
+        },
+        {
+          "name": "-c",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-T",
+          "description": "设置客户端的键表",
+          "args": {
+            "name": "key-table"
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "rename-session",
+        "rename"
+      ],
+      "description": "重命名会话",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标会话",
+          "args": {
+            "name": "session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "new-name"
+      }
+    },
+    {
+      "name": [
+        "detach-client",
+        "detach"
+      ],
+      "description": "分离当前客户端",
+      "options": [
+        {
+          "name": "-a",
+          "description": "仅保留 -t 指定的客户端"
+        },
+        {
+          "name": "-P",
+          "description": "向父进程发送 SIGHUP"
+        },
+        {
+          "name": "-E",
+          "description": "运行给定的 shell-command 替换该客户端",
+          "args": {
+            "name": "shell-command"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-s",
+          "description": "分离指定会话的所有客户端",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "new-window",
+        "neww"
+      ],
+      "description": "创建新窗口",
+      "options": [
+        {
+          "name": "-n",
+          "description": "窗口名称",
+          "args": {
+            "name": "name"
+          }
+        },
+        {
+          "name": "-c",
+          "description": "起始目录",
+          "args": {
+            "name": "dir",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-a",
+          "description": "在 target-window 之后的下个索引插入新窗口"
+        },
+        {
+          "name": "-b",
+          "description": "在 target-window 之前的下个索引插入新窗口"
+        },
+        {
+          "name": "-d",
+          "description": "新窗口不设为该会话的当前窗口"
+        },
+        {
+          "name": "-k",
+          "description": "若 target-window 存在则终止"
+        },
+        {
+          "name": "-P",
+          "description": "显示新窗口的信息"
+        },
+        {
+          "name": "-S",
+          "description": "若 window-name 存在则选中"
+        },
+        {
+          "name": "-e",
+          "description": "设置环境变量",
+          "args": {
+            "name": "environment"
+          }
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command"
+      }
+    },
+    {
+      "name": [
+        "split-window",
+        "splitw"
+      ],
+      "description": "拆分窗格",
+      "options": [
+        {
+          "name": "-h",
+          "description": "水平拆分"
+        },
+        {
+          "name": "-v",
+          "description": "垂直拆分"
+        },
+        {
+          "name": "-c",
+          "description": "起始目录",
+          "args": {
+            "name": "dir",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-b",
+          "description": "在 target-pane 左侧或上方创建窗格"
+        },
+        {
+          "name": "-f",
+          "description": "创建占满窗口高（-h）或宽（-v）的窗格"
+        },
+        {
+          "name": "-I",
+          "description": "创建空窗格并转发 stdin"
+        },
+        {
+          "name": "-Z",
+          "description": "窗口未缩放时进行缩放"
+        },
+        {
+          "name": "-e",
+          "description": "设置环境变量",
+          "args": {
+            "name": "environment"
+          }
+        },
+        {
+          "name": "-l",
+          "description": "设置列数（水平）或行数（垂直）",
+          "args": {
+            "name": "size"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "source-file",
+        "source"
+      ],
+      "description": "从文件执行命令",
+      "options": [
+        {
+          "name": "-F",
+          "description": "将路径按格式展开"
+        },
+        {
+          "name": "-n",
+          "description": "仅解析文件，不执行命令"
+        },
+        {
+          "name": "-q",
+          "description": "路径不存在时不报错"
+        },
+        {
+          "name": "-v",
+          "description": "尽可能显示解析后的命令与行号"
+        }
+      ],
+      "args": {
+        "name": "file",
+        "template": "filepaths"
+      }
+    },
+    {
+      "name": [
+        "list-keys",
+        "lsk"
+      ],
+      "description": "列出按键绑定"
+    },
+    {
+      "name": [
+        "show-options",
+        "show"
+      ],
+      "description": "显示选项",
+      "options": [
+        {
+          "name": "-g",
+          "description": "全局选项"
+        },
+        {
+          "name": "-w",
+          "description": "窗口选项"
+        }
+      ]
+    },
+    {
+      "name": [
+        "set-option",
+        "set"
+      ],
+      "description": "设置选项",
+      "options": [
+        {
+          "name": "-g",
+          "description": "全局"
+        },
+        {
+          "name": "-w",
+          "description": "窗口选项"
+        }
+      ],
+      "args": [
+        {
+          "name": "option"
+        },
+        {
+          "name": "value",
+          "isOptional": true
+        }
+      ]
+    },
+    {
+      "name": [
+        "bind",
+        "bind-key"
+      ],
+      "description": "绑定按键到命令",
+      "options": [
+        {
+          "name": "-n",
+          "description": "-T root 的别名"
+        },
+        {
+          "name": "-r",
+          "description": "标明该键可重复"
+        },
+        {
+          "name": "-N",
+          "description": "给按键附加备注",
+          "args": {
+            "name": "note"
+          }
+        },
+        {
+          "name": "-T",
+          "description": "使用的键表",
+          "args": {
+            "name": "key-table"
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "key"
+        },
+        {
+          "name": "command"
+        },
+        {
+          "name": "arguments",
+          "isOptional": true,
+          "isVariadic": true
+        }
+      ]
+    },
+    {
+      "name": [
+        "breakp",
+        "break-pane"
+      ],
+      "description": "将窗格从窗口拆出到新窗口",
+      "options": [
+        {
+          "name": "-a",
+          "description": "将窗口移到之后的下个索引"
+        },
+        {
+          "name": "-b",
+          "description": "将窗口移到之前的下个索引"
+        },
+        {
+          "name": "-d",
+          "description": "新窗口不成为当前窗口"
+        },
+        {
+          "name": "-P",
+          "description": "显示新窗口的信息"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-n",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-s",
+          "description": "源窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "capturep",
+        "capture-pane"
+      ],
+      "description": "捕获窗格内容到缓冲区",
+      "options": [
+        {
+          "name": "-a",
+          "description": "使用备用屏幕，无法访问历史"
+        },
+        {
+          "name": "-e",
+          "description": "包含文本与背景属性的转义序列"
+        },
+        {
+          "name": "-p",
+          "description": "将输出重定向到 stdout"
+        },
+        {
+          "name": "-P",
+          "description": "仅捕获尚未完成的转义序列起始部分"
+        },
+        {
+          "name": "-q",
+          "description": "未找到备用屏幕时不报错"
+        },
+        {
+          "name": "-C",
+          "description": "以八进制转义非打印字符"
+        },
+        {
+          "name": "-J",
+          "description": "保留行尾空格并合并折行"
+        },
+        {
+          "name": "-N",
+          "description": "保留每行行尾空格"
+        },
+        {
+          "name": "-b",
+          "description": "缓冲区名称",
+          "args": {
+            "name": "buffer-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-E",
+          "description": "结束行号",
+          "args": {
+            "name": "end-line"
+          }
+        },
+        {
+          "name": "-S",
+          "description": "起始行号",
+          "args": {
+            "name": "start-line"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "choose-buffer",
+      "description": "让窗格进入缓冲区选择模式",
+      "options": [
+        {
+          "name": "-N",
+          "description": "启动时不显示预览"
+        },
+        {
+          "name": "-Z",
+          "description": "缩放窗格"
+        },
+        {
+          "name": "-r",
+          "description": "反转排序顺序"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "指定初始过滤条件",
+          "args": {
+            "name": "filter"
+          }
+        },
+        {
+          "name": "-O",
+          "description": "指定排序顺序",
+          "args": {
+            "name": "sort-order",
+            "suggestions": [
+              "time",
+              "name",
+              "size"
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "template",
+        "isOptional": true
+      }
+    },
+    {
+      "name": "choose-client",
+      "description": "让窗格进入缓冲区客户端模式",
+      "options": [
+        {
+          "name": "-N",
+          "description": "启动时不显示预览"
+        },
+        {
+          "name": "-r",
+          "description": "保留排序顺序"
+        },
+        {
+          "name": "-Z",
+          "description": "缩放窗格"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "指定初始过滤条件",
+          "args": {
+            "name": "filter"
+          }
+        },
+        {
+          "name": "-O",
+          "description": "指定初始排序字段",
+          "args": {
+            "name": "sort",
+            "suggestions": [
+              "name",
+              "size",
+              "creation",
+              "activity"
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "template",
+        "isOptional": true
+      }
+    },
+    {
+      "name": "choose-tree",
+      "description": "让窗格进入缓冲区树模式",
+      "options": [
+        {
+          "name": "-G",
+          "description": "树中包含会话组里的所有会话"
+        },
+        {
+          "name": "-N",
+          "description": "启动时不显示预览"
+        },
+        {
+          "name": "-r",
+          "description": "保留排序顺序"
+        },
+        {
+          "name": "-s",
+          "description": "启动时折叠会话"
+        },
+        {
+          "name": "-w",
+          "description": "启动时折叠窗口"
+        },
+        {
+          "name": "-Z",
+          "description": "缩放窗格"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "指定初始过滤条件",
+          "args": {
+            "name": "filter"
+          }
+        },
+        {
+          "name": "-O",
+          "description": "指定初始排序字段",
+          "args": {
+            "name": "sort",
+            "suggestions": [
+              "name",
+              "size",
+              "creation",
+              "activity"
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "template",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "clearhist",
+        "clear-history"
+      ],
+      "description": "移除窗格并清除历史"
+    },
+    {
+      "name": "clock-mode",
+      "description": "进入时钟模式"
+    },
+    {
+      "name": "command-prompt",
+      "description": "在客户端打开 tmux 命令提示符",
+      "options": [
+        {
+          "name": "-l",
+          "description": "提示符只接受一次按键"
+        },
+        {
+          "name": "-i",
+          "description": "提示符输入变化时执行命令"
+        },
+        {
+          "name": "-k",
+          "description": "类似 -l，但按键会转为键名"
+        },
+        {
+          "name": "-N",
+          "description": "提示符只接受数字按键"
+        },
+        {
+          "name": "-T",
+          "description": "标记提示符用于目标"
+        },
+        {
+          "name": "-W",
+          "description": "标记提示符用于窗口"
+        },
+        {
+          "name": "-I",
+          "description": "各提示符初始文本的逗号分隔列表",
+          "args": {
+            "name": "inputs"
+          }
+        },
+        {
+          "name": "-p",
+          "description": "按序显示的提示符列表（逗号分隔）",
+          "args": {
+            "name": "prompts"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "template",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "confirm",
+        "confirm-before"
+      ],
+      "description": "执行命令前请求确认",
+      "options": [
+        {
+          "name": "-p",
+          "description": "确认时显示的提示",
+          "args": {
+            "name": "prompt"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "command",
+        "isVariadic": true
+      }
+    },
+    {
+      "name": "copy-mode",
+      "description": "进入复制模式",
+      "options": [
+        {
+          "name": "-e",
+          "description": "滚动到底部时退出复制模式"
+        },
+        {
+          "name": "-H",
+          "description": "隐藏位置指示器"
+        },
+        {
+          "name": "-M",
+          "description": "开始鼠标拖拽"
+        },
+        {
+          "name": "-q",
+          "description": "取消复制模式及其它模式"
+        },
+        {
+          "name": "-u",
+          "description": "向上滚动一页"
+        },
+        {
+          "name": "-s",
+          "description": "源窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "deleteb",
+        "delete-buffer"
+      ],
+      "description": "删除粘贴缓冲区",
+      "options": [
+        {
+          "name": "-b",
+          "description": "目标缓冲区",
+          "args": {
+            "name": "buffer-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "menu",
+        "display-menu"
+      ],
+      "description": "在 target-client 上显示菜单",
+      "options": [
+        {
+          "name": "-O",
+          "description": "松开鼠标键时不关闭菜单"
+        },
+        {
+          "name": "-c",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-T",
+          "description": "指定标题",
+          "args": {
+            "name": "title"
+          }
+        },
+        {
+          "name": "-x",
+          "description": "给出菜单的 x 坐标",
+          "args": {
+            "name": "position"
+          }
+        },
+        {
+          "name": "-y",
+          "description": "给出菜单的 y 坐标",
+          "args": {
+            "name": "position"
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "name"
+        },
+        {
+          "name": "key"
+        },
+        {
+          "name": "command",
+          "isVariadic": true
+        }
+      ]
+    },
+    {
+      "name": [
+        "display",
+        "display-message"
+      ],
+      "description": "在状态行显示消息",
+      "options": [
+        {
+          "name": "-a",
+          "description": "列出格式变量及其值"
+        },
+        {
+          "name": "-I",
+          "description": "将 stdin 的输入转发到空窗格 target-pane"
+        },
+        {
+          "name": "-p",
+          "description": "将输出打印到 stdout"
+        },
+        {
+          "name": "-v",
+          "description": "解析格式时输出详细日志",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-d",
+          "description": "消息显示的延迟",
+          "args": {
+            "name": "delay"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "message",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "displayp",
+        "display-panes"
+      ],
+      "description": "为每个可见窗格显示指示器",
+      "options": [
+        {
+          "name": "-b",
+          "description": "指示器关闭前不阻塞其它命令"
+        },
+        {
+          "name": "-N",
+          "description": "按键时不关闭指示器"
+        },
+        {
+          "name": "-d",
+          "description": "指定持续时间",
+          "args": {
+            "name": "duration"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "template",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "findw",
+        "find-window"
+      ],
+      "description": "在窗口中搜索模式",
+      "options": [
+        {
+          "name": "-i",
+          "description": "搜索时忽略大小写"
+        },
+        {
+          "name": "-C",
+          "description": "仅匹配窗口可见内容"
+        },
+        {
+          "name": "-N",
+          "description": "仅匹配窗口名称"
+        },
+        {
+          "name": "-r",
+          "description": "按正则表达式搜索"
+        },
+        {
+          "name": "-T",
+          "description": "仅匹配窗口标题"
+        },
+        {
+          "name": "-Z",
+          "description": "缩放窗格"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "match-string"
+      }
+    },
+    {
+      "name": [
+        "has",
+        "has-session"
+      ],
+      "description": "检查并报告服务端是否存在会话",
+      "options": [
+        {
+          "name": "-t",
+          "description": "指定目标会话",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "if",
+        "if-shell"
+      ],
+      "description": "shell-command 成功时执行 tmux 命令"
+    },
+    {
+      "name": [
+        "joinp",
+        "join-pane",
+        "movep",
+        "move-pane"
+      ],
+      "description": "拆分窗格并将现有窗格移入新空间",
+      "options": [
+        {
+          "name": "-b",
+          "description": "src-pane 将拼接到 dst-pane 左侧或上方",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-l",
+          "description": "设置新空间的尺寸",
+          "args": {
+            "name": "size"
+          }
+        },
+        {
+          "name": "-s",
+          "description": "源窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "killp",
+        "kill-pane"
+      ],
+      "description": "销毁指定的窗格",
+      "options": [
+        {
+          "name": "-a",
+          "description": "仅保留 target-pane"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "killw",
+        "kill-window"
+      ],
+      "description": "销毁指定的窗口",
+      "options": [
+        {
+          "name": "-a",
+          "description": "仅保留 target-window"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "lastp",
+        "last-pane"
+      ],
+      "description": "选择上次选中的窗格",
+      "options": [
+        {
+          "name": "-d",
+          "description": "禁用窗格输入"
+        },
+        {
+          "name": "-e",
+          "description": "启用窗格输入"
+        },
+        {
+          "name": "-Z",
+          "description": "窗口已缩放时保持缩放"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "last",
+        "last-window"
+      ],
+      "description": "选择上次选中的窗口",
+      "options": [
+        {
+          "name": "-t",
+          "description": "选择 target-session 上次选中的窗口",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "linkw",
+        "link-window"
+      ],
+      "description": "将窗口链接到另一会话",
+      "options": [
+        {
+          "name": "-a",
+          "description": "将窗口移到 dst-window 之后的下个索引"
+        },
+        {
+          "name": "-b",
+          "description": "将窗口移到 dst-window 之前的下个索引"
+        },
+        {
+          "name": "-d",
+          "description": "不选中新链接的窗口"
+        },
+        {
+          "name": "-k",
+          "description": "若 dst-window 存在则终止"
+        },
+        {
+          "name": "-s",
+          "description": "源窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "lsb",
+        "list-buffers"
+      ],
+      "description": "列出会话的粘贴缓冲区"
+    },
+    {
+      "name": [
+        "lsc",
+        "list-clients"
+      ],
+      "description": "列出接入服务端的客户端",
+      "options": [
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "仅列出连接到该会话的客户端",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "lscm",
+        "list-commands"
+      ],
+      "description": "列出支持的子命令",
+      "options": [
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        }
+      ],
+      "args": {
+        "name": "command",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "lsp",
+        "list-panes"
+      ],
+      "description": "列出窗口的窗格",
+      "options": [
+        {
+          "name": "-a",
+          "description": "忽略 target-window 并列出所有窗格"
+        },
+        {
+          "name": "-s",
+          "description": "target-window 视为会话"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "指定过滤条件",
+          "args": {
+            "name": "filter"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "lsw",
+        "list-windows"
+      ],
+      "description": "列出会话的窗口",
+      "options": [
+        {
+          "name": "-a",
+          "description": "忽略 target-session 并列出所有窗口"
+        },
+        {
+          "name": "-F",
+          "description": "格式化输出",
+          "args": {
+            "name": "format"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "指定过滤条件",
+          "args": {
+            "name": "filter"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标会话",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "loadb",
+        "load-buffer"
+      ],
+      "description": "将文件载入粘贴缓冲区",
+      "options": [
+        {
+          "name": "-w",
+          "description": "将缓冲区发送到剪贴板"
+        },
+        {
+          "name": "-b",
+          "description": "目标缓冲区",
+          "args": {
+            "name": "buffer-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "path"
+      }
+    },
+    {
+      "name": [
+        "lockc",
+        "lock-client"
+      ],
+      "description": "锁定客户端",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "lock",
+        "lock-server"
+      ],
+      "description": "锁定接入服务端的所有客户端"
+    },
+    {
+      "name": [
+        "locks",
+        "lock-session"
+      ],
+      "description": "锁定接入会话的所有客户端",
+      "options": [
+        {
+          "name": "-t",
+          "description": "锁定接入 target-session 的所有客户端",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "movew",
+        "move-window"
+      ],
+      "description": "将窗口移到另一会话",
+      "options": [
+        {
+          "name": "-a",
+          "description": "将窗口移到 dst-window 之后的下个索引"
+        },
+        {
+          "name": "-b",
+          "description": "将窗口移到 dst-window 之前的下个索引"
+        },
+        {
+          "name": "-r",
+          "description": "按顺序重新编号会话中的所有窗口"
+        },
+        {
+          "name": "-d",
+          "description": "不选中新链接的窗口"
+        },
+        {
+          "name": "-k",
+          "description": "若 dst-window 存在则终止"
+        },
+        {
+          "name": "-s",
+          "description": "源窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "nextl",
+        "next-layout"
+      ],
+      "description": "切换到下一个窗口布局",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "next",
+        "next-window"
+      ],
+      "description": "切换到会话中的下一窗口",
+      "options": [
+        {
+          "name": "-a",
+          "description": "切换到下一个有提示的窗口"
+        },
+        {
+          "name": "-t",
+          "description": "切换到 target-session 的下一窗口",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "pasteb",
+        "paste-buffer"
+      ],
+      "description": "将粘贴缓冲区插入窗口"
+    },
+    {
+      "name": [
+        "pipep",
+        "pipe-pane"
+      ],
+      "description": "将窗格输出管道到 shell 命令",
+      "options": [
+        {
+          "name": "-I",
+          "description": "将 stdout 连接到 shell-command"
+        },
+        {
+          "name": "-O",
+          "description": "将 stdin 连接到 shell-command"
+        },
+        {
+          "name": "-o",
+          "description": "仅当无已有管道时新建管道"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "prevl",
+        "previous-layout"
+      ],
+      "description": "切换到上一个窗口布局",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "prev",
+        "previous-window"
+      ],
+      "description": "切换到会话中的上一窗口",
+      "options": [
+        {
+          "name": "-a",
+          "description": "切换到上一个有提示的窗口"
+        },
+        {
+          "name": "-t",
+          "description": "切换到 target-session 的上一窗口",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "refresh",
+        "refresh-client"
+      ],
+      "description": "刷新客户端",
+      "options": [
+        {
+          "name": "-c",
+          "description": "返回跟踪光标"
+        },
+        {
+          "name": "-D",
+          "description": "允许改变窗口的可见部分"
+        },
+        {
+          "name": "-l",
+          "description": "向客户端请求剪贴板"
+        },
+        {
+          "name": "-L",
+          "description": "允许改变窗口的可见部分"
+        },
+        {
+          "name": "-R",
+          "description": "允许改变窗口的可见部分"
+        },
+        {
+          "name": "-S",
+          "description": "仅更新客户端状态行"
+        },
+        {
+          "name": "-U",
+          "description": "允许改变窗口的可见部分"
+        },
+        {
+          "name": "-A",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-B",
+          "description": "控制模式的格式订阅",
+          "args": {
+            "name": "subscription"
+          }
+        },
+        {
+          "name": "-C",
+          "description": "设置宽度和高度",
+          "args": {
+            "name": "XxY"
+          }
+        },
+        {
+          "name": "-f",
+          "description": "设置客户端标志",
+          "args": {
+            "name": "flags",
+            "suggestions": [
+              "active-pane",
+              "ignore-size",
+              "no-output",
+              "pause-after",
+              "read-only",
+              "wait-exit"
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "adjustment",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "renamew",
+        "rename-window"
+      ],
+      "description": "重命名窗口",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "new-name"
+      }
+    },
+    {
+      "name": [
+        "resizep",
+        "resize-pane"
+      ],
+      "description": "调整窗格大小",
+      "options": [
+        {
+          "name": "-D",
+          "description": "向下调整大小"
+        },
+        {
+          "name": "-L",
+          "description": "向左调整大小"
+        },
+        {
+          "name": "-M",
+          "description": "开始鼠标调整大小"
+        },
+        {
+          "name": "-R",
+          "description": "向右调整大小"
+        },
+        {
+          "name": "-T",
+          "description": "裁剪光标位置以下的所有行"
+        },
+        {
+          "name": "-U",
+          "description": "向上调整大小"
+        },
+        {
+          "name": "-Z",
+          "description": "在缩放与未缩放间切换活动窗格"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-x",
+          "description": "窗格宽度",
+          "args": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "-y",
+          "description": "窗格高度",
+          "args": {
+            "name": "height"
+          }
+        }
+      ],
+      "args": {
+        "name": "adjustment"
+      }
+    },
+    {
+      "name": [
+        "resizew",
+        "resize-window"
+      ],
+      "description": "调整窗口大小",
+      "options": [
+        {
+          "name": "-a",
+          "description": "设为包含该窗口的最小会话尺寸"
+        },
+        {
+          "name": "-A",
+          "description": "设为包含该窗口的最大会话尺寸"
+        },
+        {
+          "name": "-D",
+          "description": "向下调整大小"
+        },
+        {
+          "name": "-L",
+          "description": "向左调整大小"
+        },
+        {
+          "name": "-R",
+          "description": "向右调整大小"
+        },
+        {
+          "name": "-U",
+          "description": "向上调整大小"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-x",
+          "description": "窗格宽度",
+          "args": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "-y",
+          "description": "窗格高度",
+          "args": {
+            "name": "height"
+          }
+        }
+      ],
+      "args": {
+        "name": "adjustment"
+      }
+    },
+    {
+      "name": [
+        "respawnp",
+        "respawn-pane"
+      ],
+      "description": "重新激活命令已退出的窗格",
+      "options": [
+        {
+          "name": "-k",
+          "description": "若 target-pane 存在则终止"
+        },
+        {
+          "name": "-c",
+          "description": "指定窗格的起始目录",
+          "args": {
+            "name": "start-directory",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-e",
+          "description": "设置环境变量",
+          "args": {
+            "name": "environment"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "respawnw",
+        "respawn-window"
+      ],
+      "description": "重新激活命令已退出的窗口",
+      "options": [
+        {
+          "name": "-k",
+          "description": "若 target-window 存在则终止"
+        },
+        {
+          "name": "-c",
+          "description": "指定窗口的起始目录",
+          "args": {
+            "name": "start-directory",
+            "template": "folders"
+          }
+        },
+        {
+          "name": "-e",
+          "description": "设置环境变量",
+          "args": {
+            "name": "environment"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "shell-command",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "rotatew",
+        "rotate-window"
+      ],
+      "description": "轮换窗口中窗格的位置",
+      "options": [
+        {
+          "name": "-D",
+          "description": "向上轮换"
+        },
+        {
+          "name": "-U",
+          "description": "向下轮换"
+        },
+        {
+          "name": "-Z",
+          "description": "窗口已缩放时保持缩放"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "run",
+        "run-shell"
+      ],
+      "description": "执行命令但不创建新窗口"
+    },
+    {
+      "name": [
+        "saveb",
+        "save-buffer"
+      ],
+      "description": "将粘贴缓冲区保存到文件"
+    },
+    {
+      "name": [
+        "selectl",
+        "select-layout"
+      ],
+      "description": "为窗格选择布局",
+      "options": [
+        {
+          "name": "-E",
+          "description": "均匀分布当前窗格及相邻窗格"
+        },
+        {
+          "name": "-n",
+          "description": "等同于 next-layout"
+        },
+        {
+          "name": "-o",
+          "description": "尽可能应用上次设置的布局"
+        },
+        {
+          "name": "-p",
+          "description": "等同于 previous-layout"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ],
+      "args": {
+        "name": "layout-name",
+        "isOptional": true
+      }
+    },
+    {
+      "name": [
+        "selectp",
+        "select-pane"
+      ],
+      "description": "将窗格设为窗口的活动窗格",
+      "options": [
+        {
+          "name": "-D",
+          "description": "使用下方窗格"
+        },
+        {
+          "name": "-d",
+          "description": "禁用窗格输入"
+        },
+        {
+          "name": "-e",
+          "description": "启用窗格输入"
+        },
+        {
+          "name": "-L",
+          "description": "使用左侧窗格"
+        },
+        {
+          "name": "-l",
+          "description": "同 last-pane 命令"
+        },
+        {
+          "name": "-M",
+          "description": "清除标记的窗格"
+        },
+        {
+          "name": "-m",
+          "description": "设置标记的窗格"
+        },
+        {
+          "name": "-R",
+          "description": "使用右侧窗格"
+        },
+        {
+          "name": "-U",
+          "description": "使用上方窗格"
+        },
+        {
+          "name": "-Z",
+          "description": "设置窗格标题"
+        },
+        {
+          "name": "-T",
+          "description": "设置窗格标题",
+          "args": {
+            "name": "title"
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "selectw",
+        "select-window"
+      ],
+      "description": "选择窗口",
+      "options": [
+        {
+          "name": "-l",
+          "description": "同 last-window"
+        },
+        {
+          "name": "-n",
+          "description": "同 next-window"
+        },
+        {
+          "name": "-p",
+          "description": "同 previous-window"
+        },
+        {
+          "name": "-T",
+          "description": "若已是当前窗口则同 last-window"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "send",
+        "send-keys"
+      ],
+      "description": "向窗口发送按键"
+    },
+    {
+      "name": "send-prefix",
+      "description": "向窗口发送前缀键"
+    },
+    {
+      "name": [
+        "info",
+        "server-info"
+      ],
+      "description": "显示所有会话、窗口、窗格等"
+    },
+    {
+      "name": [
+        "setb",
+        "set-buffer"
+      ],
+      "description": "设置粘贴缓冲区内容",
+      "options": [
+        {
+          "name": "-a",
+          "description": "追加而非覆盖缓冲区"
+        },
+        {
+          "name": "-w",
+          "description": "将缓冲区发送到剪贴板"
+        },
+        {
+          "name": "-b",
+          "description": "缓冲区名称",
+          "args": {
+            "name": "buffer-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-n",
+          "description": "缓冲区的新名称",
+          "args": {
+            "name": "new-buffer-name"
+          }
+        }
+      ],
+      "args": {
+        "name": "data"
+      }
+    },
+    {
+      "name": [
+        "setenv",
+        "set-environment"
+      ],
+      "description": "设置/取消环境变量"
+    },
+    {
+      "name": "set-hook",
+      "description": "将钩子设为命令"
+    },
+    {
+      "name": [
+        "setw",
+        "set-window-option"
+      ],
+      "description": "设置窗口选项"
+    },
+    {
+      "name": [
+        "showb",
+        "show-buffer"
+      ],
+      "description": "显示粘贴缓冲区内容"
+    },
+    {
+      "name": [
+        "showenv",
+        "show-environment"
+      ],
+      "description": "显示环境变量",
+      "options": [
+        {
+          "name": "-t",
+          "description": "显示 target-session 的环境变量",
+          "args": {
+            "name": "target-session",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "show-hooks",
+      "description": "显示全局钩子列表"
+    },
+    {
+      "name": [
+        "showmsgs",
+        "show-messages"
+      ],
+      "description": "显示客户端消息日志",
+      "options": [
+        {
+          "name": "-T",
+          "description": "显示终端调试信息"
+        },
+        {
+          "name": "-J",
+          "description": "显示作业调试信息"
+        },
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "showw",
+        "show-winsow-options"
+      ],
+      "description": "显示窗口选项"
+    },
+    {
+      "name": [
+        "start",
+        "start-server"
+      ],
+      "description": "启动 tmux 服务端"
+    },
+    {
+      "name": [
+        "suspendc",
+        "suspend-client"
+      ],
+      "description": "挂起客户端",
+      "options": [
+        {
+          "name": "-t",
+          "description": "目标客户端",
+          "args": {
+            "name": "target-client",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "swapp",
+        "swap-pane"
+      ],
+      "description": "交换两个窗格",
+      "options": [
+        {
+          "name": "-d",
+          "description": "不改变活动窗格"
+        },
+        {
+          "name": "-D",
+          "description": "与下一个窗格交换"
+        },
+        {
+          "name": "-U",
+          "description": "将 dst-pane 与上一个窗格交换"
+        },
+        {
+          "name": "-Z",
+          "description": "窗口已缩放时保持缩放"
+        },
+        {
+          "name": "-s",
+          "description": "源窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗格",
+          "args": {
+            "name": "src-pane",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "swapw",
+        "swap-window"
+      ],
+      "description": "交换两个窗口",
+      "options": [
+        {
+          "name": "-d",
+          "description": "新窗口不成为当前窗口"
+        },
+        {
+          "name": "-s",
+          "description": "源窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "-t",
+          "description": "目的窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "unbind",
+        "unbind-key"
+      ],
+      "description": "解除按键绑定",
+      "options": [
+        {
+          "name": "-a",
+          "description": "移除所有按键绑定"
+        },
+        {
+          "name": "-n",
+          "description": "-T root 的别名"
+        },
+        {
+          "name": "-q",
+          "description": "避免返回错误"
+        },
+        {
+          "name": "-T",
+          "description": "使用的键表",
+          "args": {
+            "name": "key-table"
+          }
+        }
+      ],
+      "args": {
+        "name": "key"
+      }
+    },
+    {
+      "name": [
+        "unlinkw",
+        "unlink-window"
+      ],
+      "description": "取消窗口链接",
+      "options": [
+        {
+          "name": "-k",
+          "description": "销毁窗口"
+        },
+        {
+          "name": "-t",
+          "description": "目标窗口",
+          "args": {
+            "name": "window-name",
+            "generators": [
+              {
+                "builtin": "tmux:sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": [
+        "wait",
+        "wait-for"
+      ],
+      "description": "等待或触发事件",
+      "options": [
+        {
+          "name": "-L",
+          "description": "锁定通道",
+          "exclusiveOn": [
+            "-U"
+          ]
+        },
+        {
+          "name": "-U",
+          "description": "解锁通道",
+          "exclusiveOn": [
+            "-L"
+          ]
+        }
+      ],
+      "args": {
+        "name": "channel"
+      }
+    }
+  ],
+  "additionalSuggestions": [
+    {
+      "name": "new -s 'name'",
+      "description": "创建新会话快捷方式",
+      "insertValue": "new -s '{cursor}'"
+    }
+  ]
+}

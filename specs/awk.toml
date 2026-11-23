@@ -1,0 +1,182 @@
+# GNU Awk 5.4 的中文描述 spec
+# 改完：lig specs check awk / lig complete "awk -"
+
+name = "awk"
+description = "模式扫描与文本处理语言"
+
+# 先给程序文本，再跟输入文件
+args = [
+  { name = "程序" },
+  { name = "文件", isVariadic = true, template = "filepaths" },
+]
+
+# ── POSIX 选项 ──────────────────────────────────────────────
+[[options]]
+name = ["-f", "--file"]
+description = "从文件读取 awk 程序"
+args = { name = "程序文件", template = "filepaths" }
+isRepeatable = true
+
+[[options]]
+name = ["-F", "--field-separator"]
+description = "设置输入字段分隔符，如 -F: 或 -F\\t"
+args = { name = "分隔符", suggestions = [
+  { name = ":", description = "按冒号分隔（/etc/passwd）" },
+  { name = ",", description = "按逗号分隔（CSV）" },
+  { name = "\\t", description = "按制表符分隔" },
+  { name = "|", description = "按竖线分隔" },
+] }
+
+[[options]]
+name = ["-v", "--assign"]
+description = "程序执行前给变量赋值，形如 -v n=1"
+args = { name = "变量=值", suggestions = ["FS=:", "OFS=,", "ORS=\\n", "RS=\\n"] }
+isRepeatable = true
+
+# ── 程序来源 ────────────────────────────────────────────────
+[[options]]
+name = ["-e", "--source"]
+description = "直接给出程序文本，可多次拼接"
+args = { name = "程序文本" }
+isRepeatable = true
+
+[[options]]
+name = ["-E", "--exec"]
+description = "同 -f，但接下来的参数不再当选项解析"
+args = { name = "程序文件", template = "filepaths" }
+
+[[options]]
+name = ["-i", "--include"]
+description = "加载 awk 源码文件（如库函数）"
+args = { name = "源文件", template = "filepaths" }
+isRepeatable = true
+
+[[options]]
+name = ["-l", "--load"]
+description = "加载扩展库，如 -l time"
+args = { name = "库", suggestions = ["filefuncs", "time", "readdir", "rwarray", "intdiv0"] }
+
+# ── 输入解析 ────────────────────────────────────────────────
+[[options]]
+name = ["-b", "--characters-as-bytes"]
+description = "按单字节处理字符（忽略 UTF-8）"
+
+[[options]]
+name = ["-c", "--traditional"]
+description = "传统兼容模式，关闭 GNU 扩展"
+
+[[options]]
+name = ["-k", "--csv"]
+description = "CSV 模式：按逗号分隔并识别引号"
+
+[[options]]
+name = ["-M", "--bignum"]
+description = "使用任意精度整数运算"
+
+[[options]]
+name = ["-N", "--use-lc-numeric"]
+description = "按本地小数点解析数字"
+
+[[options]]
+name = ["-n", "--non-decimal-data"]
+description = "识别输入中的八进制和十六进制数"
+
+[[options]]
+name = ["-P", "--posix"]
+description = "严格 POSIX 模式"
+
+[[options]]
+name = ["-r", "--re-interval"]
+description = "正则区间表达式（默认已开启）"
+
+[[options]]
+name = ["-S", "--sandbox"]
+description = "沙箱模式：禁止 system() 和输出重定向"
+
+# ── 调试与分析 ──────────────────────────────────────────────
+[[options]]
+name = "-d"
+description = "退出时把全局变量写入 awkvars.out（-d文件 指定）"
+
+[[options]]
+name = "--dump-variables"
+description = "退出时把全局变量写入该文件"
+args = { name = "文件", template = "filepaths", isOptional = true }
+requiresSeparator = true
+
+[[options]]
+name = "-D"
+description = "启动 awk 调试器（-D文件 读入调试命令）"
+
+[[options]]
+name = "--debug"
+description = "启动调试器，可指定调试命令文件"
+args = { name = "命令文件", template = "filepaths", isOptional = true }
+requiresSeparator = true
+
+[[options]]
+name = ["-I", "--trace"]
+description = "跟踪程序执行过程"
+
+[[options]]
+name = "-L"
+description = "对可疑写法给出警告（如 -Lfatal）"
+
+[[options]]
+name = "--lint"
+description = "对可疑写法给出警告"
+args = { name = "级别", isOptional = true, suggestions = [
+  { name = "fatal", description = "只把致命问题当警告" },
+  { name = "invalid", description = "只警告无效的写法" },
+  { name = "no-ext", description = "不警告 GNU 扩展用法" },
+] }
+requiresSeparator = true
+
+[[options]]
+name = ["-t", "--lint-old"]
+description = "对老版 awk 的兼容性问题给出警告"
+
+[[options]]
+name = "-o"
+description = "把程序格式化输出到 awkprof.out（-o文件 指定）"
+
+[[options]]
+name = "--pretty-print"
+description = "把程序格式化后输出到该文件"
+args = { name = "文件", template = "filepaths", isOptional = true }
+requiresSeparator = true
+
+[[options]]
+name = ["-O", "--optimize"]
+description = "开启优化（默认）"
+
+[[options]]
+name = ["-s", "--no-optimize"]
+description = "关闭优化，便于调试"
+
+[[options]]
+name = "-p"
+description = "性能分析输出到 awkprof.out（-p文件 指定）"
+
+[[options]]
+name = "--profile"
+description = "性能分析输出到该文件"
+args = { name = "文件", template = "filepaths", isOptional = true }
+requiresSeparator = true
+
+[[options]]
+name = ["-g", "--gen-pot"]
+description = "把字符串提取为 .pot 翻译模板"
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["-C", "--copyright"]
+description = "显示版权信息"
+
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"
