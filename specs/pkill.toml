@@ -1,0 +1,187 @@
+# procps-ng 4.0.7 的 pkill 中文描述 spec
+# 改完：lig specs check pkill / lig complete "pkill -"
+# 注意：pkill 还可直接写 -9 / -TERM 这种形式，本文件末尾收录了几个常用信号。
+
+name = "pkill"
+description = "按名称和属性给进程发送信号"
+
+args = { name = "模式" }
+
+# ── 发送什么信号 ────────────────────────────────────────────
+[[options]]
+name = ["--signal"]
+description = "要发送的信号（编号或名称）"
+args = { name = "信号", suggestions = [
+  { name = "TERM", description = "终止（默认）" },
+  { name = "KILL", description = "强制杀死，不可捕获" },
+  { name = "HUP", description = "重载配置" },
+  { name = "INT", description = "中断（同 Ctrl+C）" },
+  { name = "QUIT", description = "退出并生成 core 文件" },
+  { name = "USR1", description = "用户自定义信号 1" },
+  { name = "USR2", description = "用户自定义信号 2" },
+  { name = "STOP", description = "暂停进程" },
+  { name = "CONT", description = "继续已暂停的进程" },
+] }
+
+[[options]]
+name = ["-9"]
+description = "发送 SIGKILL（强制结束）"
+
+[[options]]
+name = ["-15"]
+description = "发送 SIGTERM（正常终止）"
+
+[[options]]
+name = ["-H", "--require-handler"]
+description = "只匹配注册了信号处理函数的进程"
+
+[[options]]
+name = ["-q", "--queue"]
+description = "随信号发送的整数值（sigqueue）"
+args = { name = "整数" }
+
+[[options]]
+name = ["-e", "--echo"]
+description = "显示被结束的进程"
+
+[[options]]
+name = ["-m", "--mrelease"]
+description = "发完信号立即释放进程内存"
+
+# ── 怎么匹配 ────────────────────────────────────────────────
+[[options]]
+name = ["-f", "--full"]
+description = "用完整命令行匹配，而不只是进程名"
+
+[[options]]
+name = ["-x", "--exact"]
+description = "进程名必须完全一致，不做子串匹配"
+
+[[options]]
+name = ["-i", "--ignore-case"]
+description = "匹配时忽略大小写"
+
+[[options]]
+name = ["-c", "--count"]
+description = "显示匹配到的进程数量"
+
+[[options]]
+name = ["-A", "--ignore-ancestors"]
+description = "从结果里排除自己的祖先进程"
+
+[[options]]
+name = ["-Q", "--shell-quote"]
+description = "命令行按 shell 可用的引号格式输出"
+
+[[options]]
+name = ["--env"]
+description = "按环境变量匹配，如 PATH=/usr/bin"
+args = { name = "名称=值,..." }
+
+# ── 选择范围 ────────────────────────────────────────────────
+[[options]]
+name = ["-p", "--pid"]
+description = "按 PID 匹配，可写多个"
+args = { name = "PID,..." }
+
+[[options]]
+name = ["-P", "--parent"]
+description = "只匹配这些父进程的子进程"
+args = { name = "PPID,..." }
+
+[[options]]
+name = ["-g", "--pgroup"]
+description = "按进程组 ID 匹配"
+args = { name = "PGID,..." }
+
+[[options]]
+name = ["-G", "--group"]
+description = "按真实组 ID 匹配"
+args = { name = "GID,..." }
+
+[[options]]
+name = ["-s", "--session"]
+description = "按会话 ID 匹配"
+args = { name = "SID,..." }
+
+[[options]]
+name = ["-t", "--terminal"]
+description = "按控制终端匹配"
+args = { name = "tty,...", suggestions = ["pts/0", "pts/1", "tty1", "?"] }
+
+[[options]]
+name = ["-u", "--euid"]
+description = "按有效用户 ID 匹配"
+args = { name = "UID,..." }
+
+[[options]]
+name = ["-U", "--uid"]
+description = "按真实用户 ID 匹配"
+args = { name = "UID,..." }
+
+[[options]]
+name = ["-r", "--runstates"]
+description = "按运行状态匹配"
+args = { name = "状态,...", suggestions = [
+  { name = "R", description = "正在运行" },
+  { name = "S", description = "可中断睡眠（等待事件）" },
+  { name = "D", description = "不可中断睡眠（多在 I/O）" },
+  { name = "T", description = "已停止（Ctrl+Z 等）" },
+  { name = "Z", description = "僵尸进程" },
+  { name = "I", description = "空闲的内核线程" },
+] }
+
+[[options]]
+name = ["--cgroup"]
+description = "按 cgroup v2 名称匹配"
+args = { name = "组,..." }
+
+# ── 时间筛选 ────────────────────────────────────────────────
+[[options]]
+name = ["-n", "--newest"]
+description = "只取最近启动的那个进程"
+
+[[options]]
+name = ["-o", "--oldest"]
+description = "只取最早启动的那个进程"
+
+[[options]]
+name = ["-O", "--older"]
+description = "只取已运行超过 N 秒的进程"
+args = { name = "秒", suggestions = ["60", "600", "3600"] }
+
+# ── PID 文件 / 命名空间 ────────────────────────────────────
+[[options]]
+name = ["-F", "--pidfile"]
+description = "从 PID 文件读取 PID 而不扫描进程表"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-L", "--logpidfile"]
+description = "PID 文件未被加锁时直接失败"
+
+[[options]]
+name = ["--ns"]
+description = "匹配与该 PID 处于同一命名空间的进程"
+args = { name = "PID" }
+
+[[options]]
+name = ["--nslist"]
+description = "指定 --ns 要比较哪些命名空间"
+args = { name = "命名空间,...", suggestions = [
+  { name = "ipc", description = "System V 的 IPC 对象" },
+  { name = "mnt", description = "挂载点" },
+  { name = "net", description = "网络" },
+  { name = "pid", description = "PID 空间" },
+  { name = "user", description = "用户与 UID 映射" },
+  { name = "uts", description = "主机名与域名" },
+] }
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"

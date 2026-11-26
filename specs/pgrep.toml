@@ -1,0 +1,186 @@
+# procps-ng 4.0.7 的 pgrep 中文描述 spec
+# 改完：lig specs check pgrep / lig complete "pgrep -"
+
+name = "pgrep"
+description = "按名称和属性查找进程 PID"
+
+args = { name = "模式" }
+
+# ── 输出什么 ────────────────────────────────────────────────
+[[options]]
+name = ["-l", "--list-name"]
+description = "同时列出 PID 和进程名"
+
+[[options]]
+name = ["-a", "--list-full"]
+description = "同时列出 PID 和完整命令行"
+
+[[options]]
+name = ["-c", "--count"]
+description = "只输出匹配到的进程数量"
+
+[[options]]
+name = ["--quiet"]
+description = "不输出结果，只用退出码表示是否匹配"
+
+[[options]]
+name = ["-d", "--delimiter"]
+description = "指定输出多个 PID 时的分隔符"
+args = { name = "字符串", suggestions = [
+  { name = "\\n", description = "换行（默认）" },
+  { name = " ", description = "空格" },
+  { name = ",", description = "逗号" },
+] }
+
+[[options]]
+name = ["-Q", "--shell-quote"]
+description = "命令行按 shell 可用的引号格式输出"
+
+# ── 怎么匹配 ────────────────────────────────────────────────
+[[options]]
+name = ["-f", "--full"]
+description = "用完整命令行匹配，而不只是进程名"
+
+[[options]]
+name = ["-x", "--exact"]
+description = "进程名必须完全一致，不做子串匹配"
+
+[[options]]
+name = ["-i", "--ignore-case"]
+description = "匹配时忽略大小写"
+
+[[options]]
+name = ["-v", "--inverse"]
+description = "反向匹配：输出不匹配的进程"
+
+[[options]]
+name = ["-A", "--ignore-ancestors"]
+description = "从结果里排除自己的祖先进程"
+
+[[options]]
+name = ["--env"]
+description = "按环境变量匹配，如 PATH=/usr/bin"
+args = { name = "名称=值,..." }
+
+# ── 选择范围 ────────────────────────────────────────────────
+[[options]]
+name = ["-p", "--pid"]
+description = "按 PID 匹配，可写多个"
+args = { name = "PID,..." }
+
+[[options]]
+name = ["-P", "--parent"]
+description = "只匹配这些父进程的子进程"
+args = { name = "PPID,..." }
+
+[[options]]
+name = ["-g", "--pgroup"]
+description = "按进程组 ID 匹配"
+args = { name = "PGID,..." }
+
+[[options]]
+name = ["-G", "--group"]
+description = "按真实组 ID 匹配"
+args = { name = "GID,..." }
+
+[[options]]
+name = ["-s", "--session"]
+description = "按会话 ID 匹配"
+args = { name = "SID,..." }
+
+[[options]]
+name = ["-t", "--terminal"]
+description = "按控制终端匹配"
+args = { name = "tty,...", suggestions = ["pts/0", "pts/1", "tty1", "?"] }
+
+[[options]]
+name = ["-u", "--euid"]
+description = "按有效用户 ID 匹配"
+args = { name = "UID,..." }
+
+[[options]]
+name = ["-U", "--uid"]
+description = "按真实用户 ID 匹配"
+args = { name = "UID,..." }
+
+[[options]]
+name = ["-r", "--runstates"]
+description = "按运行状态匹配"
+args = { name = "状态,...", suggestions = [
+  { name = "R", description = "正在运行" },
+  { name = "S", description = "可中断睡眠（等待事件）" },
+  { name = "D", description = "不可中断睡眠（多在 I/O）" },
+  { name = "T", description = "已停止（Ctrl+Z 等）" },
+  { name = "Z", description = "僵尸进程" },
+  { name = "I", description = "空闲的内核线程" },
+] }
+
+[[options]]
+name = ["--cgroup"]
+description = "按 cgroup v2 名称匹配"
+args = { name = "组,..." }
+
+# ── 时间 / 数量筛选 ─────────────────────────────────────────
+[[options]]
+name = ["-n", "--newest"]
+description = "只取最近启动的那个进程"
+
+[[options]]
+name = ["-o", "--oldest"]
+description = "只取最早启动的那个进程"
+
+[[options]]
+name = ["-O", "--older"]
+description = "只取已运行超过 N 秒的进程"
+args = { name = "秒", suggestions = ["60", "600", "3600"] }
+
+[[options]]
+name = ["-w", "--lightweight"]
+description = "列出所有 TID（含线程）"
+
+# ── PID 文件 / 命名空间 ────────────────────────────────────
+[[options]]
+name = ["-F", "--pidfile"]
+description = "从 PID 文件读取 PID 而不扫描进程表"
+args = { name = "文件", template = "filepaths" }
+
+[[options]]
+name = ["-L", "--logpidfile"]
+description = "PID 文件未被加锁时直接失败"
+
+[[options]]
+name = ["--ns"]
+description = "匹配与该 PID 处于同一命名空间的进程"
+args = { name = "PID" }
+
+[[options]]
+name = ["--nslist"]
+description = "指定 --ns 要比较哪些命名空间"
+args = { name = "命名空间,...", suggestions = [
+  { name = "ipc", description = "System V 的 IPC 对象" },
+  { name = "mnt", description = "挂载点" },
+  { name = "net", description = "网络" },
+  { name = "pid", description = "PID 空间" },
+  { name = "user", description = "用户与 UID 映射" },
+  { name = "uts", description = "主机名与域名" },
+] }
+
+[[options]]
+name = ["--signal"]
+description = "配合 --require-handler 过滤信号（编号或名称）"
+args = { name = "信号", suggestions = [
+  { name = "TERM", description = "终止（默认）" },
+  { name = "KILL", description = "强制杀死，不可捕获" },
+  { name = "HUP", description = "重载配置" },
+  { name = "INT", description = "中断（同 Ctrl+C）" },
+  { name = "USR1", description = "用户自定义信号 1" },
+] }
+
+# ── 元信息 ──────────────────────────────────────────────────
+[[options]]
+name = ["-h", "--help"]
+description = "显示帮助"
+
+[[options]]
+name = ["-V", "--version"]
+description = "显示版本"

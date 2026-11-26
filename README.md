@@ -44,13 +44,15 @@ $ lig complete "tmux split-window -"
 | `grep.toml` | GNU `grep` | 47 选项 | 含 `--color`、`--binary-files`、`--exclude-dir` 等枚举值 |
 | `awk.toml` | GNU `awk` (gawk) | 34 选项 | 可选参数区分了“紧跟”与 `=` 两种写法 |
 | `ping.toml` | iputils `ping` | 38 选项 | 含 `-M`/`-T`/`-N` 的取值说明 |
+| `pgrep.toml` | procps-ng `pgrep` | 33 选项 | 运行状态、命名空间、终端等取值都带说明 |
+| `pkill.toml` | procps-ng `pkill` | 33 选项 | `--signal` 信号表 + `-9`/`-15` 简写 |
 | `ail-cli.toml` | AppImageLauncher CLI | 3 子命令 | `integrate` / `unintegrate` / `would-integrate` |
 | `pacman.toml` | `pacman` | 71 选项 | `-S/-Q/-R/-U/-F/-T/-D` 的选项全部纳入，描述带操作前缀 |
 | `yay.toml` | `yay` | 158 选项 | 含 AUR 专属操作 `-Y/-B/-G/-P/-W` |
 | `tmux.json` | `tmux` | 85 子命令 / 312 选项 | 由 lig 内置 spec 全量翻译（399 条描述） |
 | `curl.json` | `curl` | 225 选项 | 由 lig 内置 spec 全量翻译（226 条描述） |
 
-合计约 700 条中文描述。`tmux`/`curl` 是整体翻译，其余是手写（参数取自本机 `--help`）。
+合计 1400+ 条中文描述（含枚举值、子命令选项）。`tmux`/`curl` 是整体翻译，其余是手写（参数取自本机 `--help`）。
 
 ## 前置要求
 
